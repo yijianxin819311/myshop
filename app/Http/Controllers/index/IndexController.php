@@ -5,12 +5,18 @@ namespace App\Http\Controllers\index;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use App\Http\index\Model\Cart;
+use App\Http\admin\Model\Goods;
 class IndexController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-    	echo "前台首页";
-    	// return view()
+    	$res=$request->all();
+        //dd($res);
+        $result=DB::table('goods')->get();
+        $value=$request->session()->get('name');
+        //dd($result);
+    	return view('index.index',['goods'=>$result,'value'=>$value]);
     }
      public function login(Request $request)
     {
@@ -19,13 +25,19 @@ class IndexController extends Controller
      public function login_do(Request $request)
      {
      	$res=$request->all();
-     	$result=DB::table('user')->where(['name'=>$res['names'],'password'=>$res['password']])->first();
-        dd($result);
+            $where=[
+                ['name','=',$res['names']],
+                ['password','=',$res['password']],
+            ];
+     	$result=DB::table('user')->where($where)->first();
+       // dd($result);
         if(empty($result)){
-            echo '账号密码错误';
+            echo "<script>alert('账号密码错误'),location.href='/index/login'</script>";
         }else{
-            $request->session->put('result',$result);
-            return redirect('index.index');
+            //存入session
+            $request->session()->put('name',$res['names']);
+
+            return redirect('index');
         }
      }
      public function register(Request $request)
@@ -57,6 +69,70 @@ class IndexController extends Controller
 
      }
 
+      public function goodsdetail(Request $request)
+    {
+        
+        $res=$request->all();
+        //dd($res);
+        $result=DB::table('goods')->where(['id'=>$res['id']])->first();
+        //dd($result);
+        return view ('index.goodsdetail',['goods'=>$result]);
+    }
+    //添加购物车
+    public function cart(Request $request)
+    {
+        //echo 11;die;
+         $value=$request->session()->get('name');
+         //dd($value);
+        if(empty($value)){
+            return redirect('index/login');
+        }
+        $id=$request->all();
+        
+        //dd($id);
+        $goods=Goods::where('id',$id)->first();
+        //dd($goods);
+        $uid=DB::table('user')->where('name',['name'=>$value])->first('id');
+         // dd($uid);
+          $uid=$uid->id;
+  
+        $res=Cart::insert([
+            'uid'=>$uid,
+            'goods_id'=>$goods['id'],
+            'goods_name'=>$goods['goods_name'],
+            'goods_pic'=>$goods['goods_pic'],
+            'add_time'=>time(),
+            'goods_price'=>$goods['goods_price'],
 
-
+            ]);
+        if($res){
+            return redirect('index/cartlist');
+        }else{
+            return redirect('index/goodsdetail');
+        }
+    }
+    //购物车列表
+    public function cartlist(Request $request)
+    {
+        
+        $res = Cart::get();
+        //dd($res);
+        $total = 0;
+        foreach($res->toArray() as $v){
+            $total += $v['goods_price'];
+        }
+        //dd($total);
+        return view('index/cartlist',['cart'=>$res,'total'=>$total]);
+    }
+     public function confirm_pay(Request $request)
+     {
+       $res = Cart::get();
+        //dd($res);
+        $total = 0;
+        foreach($res->toArray() as $v){
+            $total += $v['goods_price'];
+        }
+        //dd($total);
+        return view('index/confirm_pay',['cart'=>$res,'total'=>$total]);
+     }
 }

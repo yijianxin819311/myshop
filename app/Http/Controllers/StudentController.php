@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Http\model\Goods;
+
 class StudentController extends Controller
 {
     public  function index(Request $request)
@@ -22,8 +22,8 @@ class StudentController extends Controller
     	$num=$redis->get('num');
     	echo "访问次数".$num;
     	$res=$request->all();
-    	//var_dump($res);
-    	$search='';
+    	//var_dump($res);$search='';
+    	
     	if(!empty($res['search'])){
     		$search=$res['search'];
     		$info=DB::table('student')
@@ -122,11 +122,11 @@ class StudentController extends Controller
 	   			'addtime'=>$res['addtime'],
 	   		]);
 	   //dd($result);
-	   if($result){
-	   	return redirect('student/index');
-	   }else{
-	   	echo "fail";
-	   }
+		   if($result){
+		   	return redirect('student/index');
+		   }else{
+		   	echo "fail";
+		   }
 	  }
 
 

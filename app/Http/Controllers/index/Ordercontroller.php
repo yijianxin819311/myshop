@@ -41,6 +41,8 @@ class Ordercontroller extends Controller
     		return redirect('order/add');
     	}
     }
+
+    //确认订单
     public function order_list(Request $request)
     {
     	$res=$request->all();
@@ -56,5 +58,30 @@ class Ordercontroller extends Controller
     	$order=Order::where(['oid'=>$oid])->get();
     	//dd($order);
     	return view('index.order_list',['order'=>$order],['total'=>$total]);
+    }
+    //订单列表
+    public function order_lists(Request $request)
+    {
+    	$value=$request->session()->get('name');
+         //dd($value);
+        if(empty($value)){
+            return redirect('index/login');
+        }
+        //dd($data);
+    	$uid=DB::table('user')->where('name',['name'=>$value])->first('id');
+    	//dd($uid);
+    	$uid=$uid->id;
+    	$order_info = Order::where(['uid'=>$uid])->orderBy('add_time','desc')->paginate(5);
+    	// dd($order_info);
+    	$order = $order_info->toArray()['data'];
+    	
+    	$state_list = [1=>'待支付',2=>'已支付',3=>'已过期',4=>'用户删除'];
+    	//十分钟取消订单
+    	foreach($order as $k=>$v){
+    		$order[$k]['end_time'] = date('Y/m/d H:i:s',$v['add_time'] + 10 * 60);
+    		$order[$k]['order_state'] = $state_list[$v['state']];
+    	}
+        
+    	return view('index.order_lists',['order_info'=>$order_info,'order'=>$order]);
     }
 }

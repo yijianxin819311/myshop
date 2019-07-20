@@ -78,7 +78,7 @@
             </div>
         </div>
         <!-- <button class="btn button-default">去结算</button> -->
-        <a href="{{url('order/add')}}" class="btn button-default">去结算</a>
+        <a href="{{url('confirm_pay')}}"><button class="btn button-default">去结算</button></a>
     </div>
 </div>
 <!-- end cart -->

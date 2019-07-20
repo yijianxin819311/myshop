@@ -11,8 +11,11 @@
             <img src="{{$goods->goods_pic}}" alt="">
             <h5>{{$goods->goods_name}}</h5>
             <div class="price">￥{{$goods->goods_price}} <span>$28</span></div>
-           
+           @if($car>=1)
+                {{'已加入购物车'}}
+            @else
             <a href="{{url('index/cart')}}?id={{$goods->id}}"> <button type="button" class="btn button-default">加入购物车</button></a>
+            @endif
         </div>
         <div class="review">
             <h5>1 reviews</h5>

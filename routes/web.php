@@ -48,16 +48,26 @@ Route::post('/admin/goods_update_do','admin\GoodsController@goods_update_do');
 Route::get('/index/goodsdetail','index\IndexController@goodsdetail');
 //购物车
 Route::get('/index/cart','index\IndexController@cart');
+
 //购物车列表
 Route::get('/index/cartlist','index\IndexController@cartlist');
-//支付宝的路由
-Route::get('pay','PayController@do_pay'); 
-Route::get('return_url','PayController@return_url'); 
-Route::post('notify_url','PayController@notify_url'); 
-//添加订单
-Route::get('order/add','index\OrderController@add');
-//订单视图
-Route::get('index/order_list','index\OrderController@order_list');  
+//购物车删除
+Route::get('/index/cartdelete', 'index\IndexController@cartdelete');
+//订单详情
+//Route::get('/index/order', 'index\IndexController@order');
+
+//支付宝
+Route::get('/do_pay', 'PayController@do_pay');
+//订单详情
+Route::get('confirm_pay', 'PayController@confirm_pay');
+//支付订单详情
+Route::get('index/order_list', 'index\IndexController@order_list');
+Route::get('pay_order', 'PayController@pay_order');
+
+//同步
+Route::get('return_url', 'PayController@aliReturn');
+//异步
+Route::post('notify_url', 'PayController@aliNotify');
 //学生信息展示
 Route::get('/student/index','StudentController@index');
 

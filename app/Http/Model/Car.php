@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Admin\Model;
+namespace App\Http\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Goods extends Model
+class Car extends Model
 {
-    protected $table = 'goods';
+    protected $table = 'car';
     protected $primaryKey="id";
     public $timestamps = false;
-    
 }

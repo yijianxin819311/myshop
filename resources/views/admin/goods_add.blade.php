@@ -36,7 +36,7 @@
 @section('script')
 <script>
     $(function(){
-
+       
     });
 </script>
 @endsection

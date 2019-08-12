@@ -33,7 +33,7 @@ class IndexController extends Controller
                 ['name','=',$data['names']],
                 ['password','=',$data['password']],
             ];
-            $res=User::where($where)->first();
+            $res=User::where($where)->insert($res);
             // dd($res);
             if($res){
                 $request->session()->put('name',$data['names']);
@@ -52,18 +52,18 @@ class IndexController extends Controller
      }
       public function register_do(Request $request)
      {
-        $validatedData = $request->validate
-         ([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        ],
-            ['name.required'=>'名字必填',
-            'email.required'=>'邮箱必填',
-            'password.required'=>'密码必填',
+        // $validatedData = $request->validate
+        //  ([
+        //     'name' => 'required',
+        //     'email' => 'required',
+        //     'password' => 'required',
+        // ],
+        //     ['name.required'=>'名字必填',
+        //     'email.required'=>'邮箱必填',
+        //     'password.required'=>'密码必填',
             
            
-        ]);
+        // ]);
      	$res=$request->all();
      	// dd($res);
      	$result=DB::table('user')->insert(['name'=>$res['names'],'email'=>$res['email'],'password'=>$res['password'],'reg_time'=>time()]);
@@ -98,15 +98,7 @@ class IndexController extends Controller
         
         //dd($id);
         $goods=Goods::where('id',$id)->first();
-        //dd($goods['id']);
-        // $car=Cart::where(['goods_id'=>$id['id']])->count();
-        // //dd($car);
-        // if($car>=1){
-        //     echo '该商品已加入购物车';die;
-        // }
-        // $uid=DB::table('user')->where('name',['name'=>$value])->first('id');
-        //  // dd($uid);
-        //   $uid=$uid->id;
+        
          $uid=session('id');
        
         $res=Cart::insert([

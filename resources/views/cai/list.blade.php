@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>查看竞猜结果</title>
+</head>
+<body>
+	<table>
+         <h3>竞猜结果</h3>
+         <h3>
+         对阵结果:
+             {{$info->q_name}} 
+              @if($info->q_cai==1)
+               胜
+              @elseif($info->q_cai==2)
+               平
+              @else
+               负
+              @endif
+             {{$info->q_name1}}
+         </h3>
+         <h3>
+         你的竞猜:
+         @if($data->w_cai==0)
+           你没有参加竞猜
+         @else
+             {{$data->q_name}} 
+              @if($data->w_cai==1)
+               胜
+              @elseif($data->w_cai==2)
+               平
+              @elseif($data->w_cai==3)
+               负
+              @endif
+             {{$data->q_name1}}
+         @endif
+         </h3>
+         <h3>
+           结果: 
+           @if($data->w_cai==$info->q_cai)
+              恭喜你猜中了
+           @else
+              很抱歉,你没猜中
+           @endif
+
+         </h3>
+	</table>
+</body>
+</html>

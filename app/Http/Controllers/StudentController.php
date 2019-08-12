@@ -10,12 +10,7 @@ class StudentController extends Controller
     public  function index(Request $request)
     {
 
-    	// DB::connection('mysql_shop')->enableQueryLog();
-    	// $info=DB::connection('mysql_shop')->table('shop_goods')->where('goods_name','like','%22%')->get()->toArray();
-    	// $sql=DB::connection('mysql_shop')->getQueryLog();
-    	// var_dump($sql);
-    	// $info=DB::connection('mysql_shop')->table('shop_goods')->get()->toArray();
-    	// dd();
+    	
     	$redis=new \Redis;
     	$redis->connect('127.0.0.1','6379');
     	$redis->incr('num');

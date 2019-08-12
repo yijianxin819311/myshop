@@ -29,7 +29,7 @@
 				<td>{{$v->age}}</td>
 				<td>{{$v->sex}}</td>
 				<td>{{$v->class_id}}</td>
-				<td>{{ date('Y-m-d h:i:s',$v->addtime)}}</td>
+				<td>{{date('Y-m-d h:i:s',$v->addtime)}}</td>
 				<td>
 					<a href="{{url('student/delete')}}?id={{$v->id}}">删除</a>
 					<a href="{{url('student/update')}}?id={{$v->id}}">修改</a>

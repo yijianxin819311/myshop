@@ -136,6 +136,11 @@ Route::get('/weixin/tag_do','Weixin@tag_do');//为标签下用户添加标签
 Route::get('/weixin/tuisong','Weixin@tuisong');//推送消息
 Route::post('/weixin/tuisong_do','Weixin@tuisong_do');//推送消息执行
 
+//生成二维码
+Route::get('/agent/userlist','Agent@userlist');//
+Route::get('/agent/creat_qrcode','Agent@creat_qrcode');//
+Route::get('/agent/list','Agent@list');//
+
 
 
 Route::get('/index','index\IndexController@index');

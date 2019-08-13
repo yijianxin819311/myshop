@@ -13,7 +13,7 @@ class Agent extends Controller
 		//用户列表
 	    $user=DB::table('users')->get();
 	    // dd($user);
-	    return view('Agent.userList',['user'=>$user]);
+	    return view('agent.userList',['user'=>$user]);
 	}
 	//获取access_token
     public function  get_access_token()
@@ -71,7 +71,7 @@ class Agent extends Controller
     public function creat_qrcode(Request $request)
     {
     	$uid=$request->all()['uid'];//用户uid就是用户专属推广二维码
-    	 //dd($uid);
+    	// dd($uid);
     	$access_token=$this->get_access_token();
        $url="https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=".$access_token;
        //dd($url);

@@ -595,12 +595,15 @@ class Weixin extends Controller
         $xml = (array)$xml; //转化成数组
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents(storage_path('logs/wx_event.log'),$log_str,FILE_APPEND);
+        //dd($xml);
         if($xml['MsgType'] == 'event'){
             if($xml['Event'] == 'subscribe'){ //关注
+               //isset检测变量是否设置
                 if(isset($xml['EventKey'])){
                     //拉新操作
                     $agent_code = explode('_',$xml['EventKey'])[1];
-                    $agent_info = DB::connection('mysql_cart')->table('user_agent')->where(['uid'=>$agent_code,'openid'=>$xml['FromUserName']])->first();
+                    //dd($agent_code);
+                    $agent_info = DB::table('user_agent')->where(['uid'=>$agent_code,'openid'=>$xml['FromUserName']])->first();
                     if(empty($agent_info)){
                         DB::table('user_agent')->insert([
                             'uid'=>$agent_code,
@@ -614,7 +617,7 @@ class Weixin extends Controller
                 echo $xml_str;
             }
         }elseif($xml['MsgType'] == 'text'){
-            $message = '你好!';
+            $message = '你好,欢迎来到我的世界';
             $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
             echo $xml_str;
         }

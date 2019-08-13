@@ -112,7 +112,7 @@ Route::get('/weixin/login','Weixin@login');
 Route::get('/weixin/template_list','Weixin@template_list');
 Route::get('/weixin/del_template','Weixin@del_template');
 Route::get('/weixin/push_template','Weixin@push_template');
-Route::get('/weixin/event','Weixin@event');
+Route::post('/weixin/event','Weixin@event');
 //上传素材
 Route::get('/weixin/sucai','Weixin@sucai');
 Route::post('/weixin/do_upload','Weixin@do_upload');

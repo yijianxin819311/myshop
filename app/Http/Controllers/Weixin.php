@@ -587,7 +587,9 @@ class Weixin extends Controller
     //微信消息推送
     public function event()
     {//$this->checkSignature();
+        //dd(11);
         $data = file_get_contents("php://input");
+        //dd($data);
         //解析XML
         $xml = simplexml_load_string($data,'SimpleXMLElement', LIBXML_NOCDATA);//将xml字符串 转换成对象
         $xml = (array)$xml; //转化成数组

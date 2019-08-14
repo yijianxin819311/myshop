@@ -13,7 +13,7 @@ class Agent extends Controller
 		//用户列表
 	    $user=DB::table('users')->get();
 	    // dd($user);
-	    return view('agent.userList',['user'=>$user]);
+	    return view('agent.userlist',['user'=>$user]);
 	}
 	//获取access_token
     public function  get_access_token()
@@ -71,7 +71,7 @@ class Agent extends Controller
     public function creat_qrcode(Request $request)
     {
     	$uid=$request->all()['uid'];//用户uid就是用户专属推广二维码
-    	// dd($uid);
+    	//dd($uid);
     	$access_token=$this->get_access_token();
        $url="https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=".$access_token;
        //dd($url);
@@ -110,9 +110,9 @@ class Agent extends Controller
       $rea=Storage::disk('local')->put($path,$res->getBody());
       //dd($rea);
      $qrcode_url=env('APP_URL').'/storage/'.$path;
-     //dd($qrcode_url);
+     //dump($qrcode_url);
      //存入数据库
-      $result=DB::table('userss')->where(['id'=>$uid])->update([
+      $result=DB::table('user_wechat')->where(['uid'=>$uid])->update([
             'qrcode_url' => $qrcode_url,
             'agent_code' => $uid
         ]);
@@ -123,7 +123,7 @@ class Agent extends Controller
     }
     public function list()
     {
-    	$user_info = DB::table('userss')->get();
+    	$user_info = DB::table('user_wechat')->get();
     	//dd($user_info);
         return view('agent.list',['user_info'=>$user_info]);
     }

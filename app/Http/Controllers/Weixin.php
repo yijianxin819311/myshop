@@ -77,6 +77,8 @@ class Weixin extends Controller
             $openid_result = DB::connection('mysql')->table('user_wechat')->insert([
                 'uid'=>$user_result,
                 'openid' => $openid,
+                'name'=>$user_infos['nickname'],
+                'reg_time'=>time(),
             ]);
             //dd($openid_result);
             DB::connection('mysql')->commit();

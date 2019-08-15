@@ -141,6 +141,10 @@ Route::get('/agent/userlist','Agent@userlist');//
 Route::get('/agent/creat_qrcode','Agent@creat_qrcode');//
 Route::get('/agent/list','Agent@list');//
 
+//菜单
+Route::get('/caidan/add','Caidan@add');//
+Route::post('/caidan/add_do','Caidan@add_do');
+
 
 
 Route::get('/index','index\IndexController@index');

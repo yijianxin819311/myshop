@@ -39,7 +39,7 @@ class Weixin extends Controller
         //获取access_token
         $url=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid=".env('WECHAT_APPID')."&secret=".env('WECHAT_APPSECRET')."&code=".$code."&grant_type=authorization_code");
         //dd($url);
-        // $re=file_get_contents($url);
+        //$re=file_get_contents($url);
         $result=json_decode($url,1);
         //dd($result);
         $access_token=$result['access_token'];
@@ -597,14 +597,15 @@ class Weixin extends Controller
         $xml = (array)$xml; //转化成数组
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents(storage_path('logs/wx_event.log'),$log_str,FILE_APPEND);
-        //dd($xml);
+        // dd($xml);
         if($xml['MsgType'] == 'event'){
             if($xml['Event'] == 'subscribe'){ //关注
                //isset检测变量是否设置
                 if(isset($xml['EventKey'])){
+                    // dd(11);
                     //拉新操作
                     $agent_code = explode('_',$xml['EventKey'])[1];
-                    //dd($agent_code);
+                    // dd($agent_code);
                     $agent_info = DB::table('user_agent')->where(['uid'=>$agent_code,'openid'=>$xml['FromUserName']])->first();
                     if(empty($agent_info)){
                         DB::table('user_agent')->insert([
@@ -614,7 +615,7 @@ class Weixin extends Controller
                         ]);
                     }
                 }
-                $message = '你好!';
+                $message = '嗨!';
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
             }

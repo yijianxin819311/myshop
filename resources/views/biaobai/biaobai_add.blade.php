@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>菜单</title>
+	<title>表白菜单</title>
 </head>
 <body>
 <center>
-	<form action="{{url('caidan/add_do')}}" method="post">
+	<form action="{{url('biaobai/biaobai_add_do')}}" method="post">
 		@csrf
 		<table>
 			菜单类型：
@@ -16,9 +16,8 @@
 			</select><br/>
 			一级菜单名称：<input type="text" name="menu_name"><br/>
 			二级菜单名称：<input type="text" name="menu_names"><br/>
-			
 			 菜单标识或url：<input type="text" name="menu_tag" ><br/><br/>
-			 事件类型：<select name="event_type" >
+			 事件类型：<select name="event_type">
             <option value="click">click</option>
             <option value="view">view</option>
             <option value="scancode_push">scancode_push</option>
@@ -33,30 +32,7 @@
 		</table>
 	</form>
 	 <br><br>
-    <h3>菜单展示</h3>
-    <table border="1" width="1000">
-        <tr>
-            <td width="7%">菜单结构</td>
-            <td width="7%">菜单编号</td>
-            <td width="10%">菜单名称</td>
-            <td width="10%">二级菜单名</td>
-            <td>菜单等级</td>
-            <td>事件类型</td>
-            <td>菜单标识</td>
-            <td>操作</td>
-        </tr>
-        @foreach($list as $v)
-        <tr>
-            <td>{{$v['menu_str']}}</td>
-            <td>{{$v['menu_num']}}</td>
-            <td>@if(empty($v['menu_names'])){{$v['menu_name']}}@endif</td>
-            <td>{{$v['menu_names']}}</td>
-            <td>{{$v['menu_type']}}</td>
-            <td>{{$v['event_type']}}</td>
-            <td>{{$v['menu_tag']}}</td>
-            <td><a href="{{url('caidan/del')}}?id={{$v['menu_str']}}">删除</a></td>
-        </tr>
-        @endforeach
+    
     </table>
 </center>
 </center>

@@ -3,6 +3,7 @@
 namespace  App\Http\Tools;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use DB;
 class Wechat{
     public  $request;
     public  $client;
@@ -11,12 +12,21 @@ class Wechat{
         $this->request = $request;
         $this->client = $client;
     }
+    //通过openid 获得用户详细信息
     public function wechat_user_info($openid){
         $access_token = $this->get_access_token();
         $wechat_user = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN");
         $user_info = json_decode($wechat_user,1);
         return $user_info;
     }
+   // public function wechat_user_info(){
+   //      $openid = DB::table('wechat_openid')->value('openid');
+   //      $access_token = $this->get_access_token();
+   //      $wechat_user = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN");
+   //      $user_info = json_decode($wechat_user,1);
+   //      //dd($user_info);
+   //      return $user_info;
+   //  }
      /**
      * 根据标签id获取标签粉丝
      */

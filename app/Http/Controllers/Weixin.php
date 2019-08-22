@@ -153,7 +153,7 @@ class Weixin extends Controller
 
     public function user_list(Request $request)
     {
-    	$user=$request->all();
+        
     	$user_info=DB::table('wechat_openid')->get();
     	 //dd($user_info);
     	return view('weixin/user_list',['res'=>$user_info]);
@@ -164,16 +164,24 @@ class Weixin extends Controller
     {
     	
          $openid=DB::table('wechat_openid')->where(['id'=>$this->request->all()['id']])->value('openid');
+        $user_info = $this->wechat->wechat_user_info($openid);
+        //dd($user_info);
         //dd($openid);
-        $access_token = $this->get_access_token();
-        $wechat_user = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN");
-        $user_info = json_decode($wechat_user,1);
-        // dd($user_info);
+        // $access_token = $this->get_access_token();
+        // $wechat_user = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN");
+        // $user_info = json_decode($wechat_user,1);
+        //  //dd($user_info);
        
         return view('weixin/lists',['res'=>$user_info]); 
     }
 
-    
+    // public function wechat_user_info($openid){
+    //     $access_token = $this-get_access_token();
+    //     $wechat_user = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN");
+    //     $user_info = json_decode($wechat_user,1);
+    //     dd($user_info);
+    //     return $user_info;
+    // }
 
 
 
@@ -626,4 +634,7 @@ class Weixin extends Controller
         }
         //echo $_GET['echostr'];  //第一次访问
     }
+
+    
+    
 }

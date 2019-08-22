@@ -18,7 +18,11 @@
 			@foreach($res as $v)
 			<tr>
 				<td>{{$v->openid}}</td>
-				<td><a href="{{url('weixin/lists')}}?id={{$v->id}}">详情</a></td>
+				<td>
+					<a href="{{url('weixin/lists')}}?id={{$v->id}}">详情</a>
+					<a href="">我要留言</a>
+					<a href="">我要表白</a>
+				</td>
 			</tr>
 		@endforeach
 		</table>

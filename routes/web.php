@@ -103,6 +103,8 @@ Route::get('/wechat/get_user_list','WechatController@get_user_list');
 Route::get('/wechat/user_list','WechatController@user_list');
 //接口
 Route::get('/weixin/get_user_info','Weixin@get_user_info');
+Route::get('/weixin/wechat_user_info','Weixin@wechat_user_info');
+Route::get('/weixin/get_user_infos','Weixin@get_user_infos');
 Route::get('/weixin/user_info','Weixin@user_info');
 Route::get('/weixin/get_user_list','Weixin@get_user_list');
 Route::get('/weixin/user_list','Weixin@user_list');
@@ -144,8 +146,28 @@ Route::get('/agent/list','Agent@list');//
 //菜单
 Route::get('/caidan/add','Caidan@add');//
 Route::post('/caidan/add_do','Caidan@add_do');
+Route::get('/caidan/del','Caidan@del');//
+//表白
+Route::get('/biaobai/code','Biaobai@code');//授权码
+Route::get('/biaobai/login','Biaobai@login');//授权登录
+Route::get('/biaobai/add','Biaobai@add');
+Route::get('/biaobai/list','Biaobai@list');//通过openid获得我要表白的用户页面
+Route::get('/biaobai/lists','Biaobai@lists');//表白列表
+Route::get('/biaobai/biaobai_add','Biaobai@biaobai_add');
+Route::post('/biaobai/biaobai_add_do','Biaobai@biaobai_add_do');
+Route::post('/biaobai/send','Biaobai@send');
 
+Route::get('/liuyand/login','LiuyanController@login');//授权码
 
+//xin留言
+Route::get('/liuyans/logins','Liuyans@logins');//授权码
+Route::get('/liuyans/code','Liuyans@code');//授权码
+Route::get('/liuyans/login','Liuyans@login');//
+Route::get('/liuyans/add','Liuyans@add');//
+Route::post('/liuyans/add_do','Liuyans@add_do');//
+Route::get('/liuyans/liuyans_list','Liuyans@liuyans_list');//
+Route::get('/liuyans/get_user_list','Liuyans@get_user_list');//
+Route::get('/liuyans/lists','Liuyans@lists');//
 
 Route::get('/index','index\IndexController@index');
 //前台登录

@@ -69,11 +69,15 @@ class Caidan extends Controller
     {
     	$re=DB::table('caidan')->groupBy('menu_name')->select(['menu_name'])->orderBy('menu_name')->get()->toArray();
     	//dd($re);
+    	// dump($re);
     	$info=[];
     	foreach($re as $v){
+    		// dd($v);
     		$res=DB::table('caidan')->where(['menu_name'=>$v->menu_name])->orderBy('menu_name')->get()->toArray();
     		//dd($res);
+    		//dump($res);
     		if(!empty($res[0]->menu_names)){
+    			//二级
     			$info[]=[
     				'menu_str'=>'|',
     				'menu_name'=>$v->menu_name,
@@ -84,15 +88,23 @@ class Caidan extends Controller
     				'menu_tag'=>'',
     				
     			];
+    			//dd($info);
+    			// dump($info);
     			foreach($res as $vo){
     				 $vo->menu_str = '|-';
                     $info[] = (array)$vo;
     			}
+    			//dd($info);
+    			// dump($info);
     		}else{
+    			//一级
     			 $res[0]->menu_str = '|';
                 $info[] = (array)$res[0];
+                //dd($info);
+               //dump($info);
     		}
     		// dd($info);
+    		  //dump($info);
     		$url = 'https://api.weixin.qq.com/cgi-bin/menu/get?access_token='.$this->get_access_token();
         	$result= file_get_contents($url);
     	}
@@ -102,12 +114,14 @@ class Caidan extends Controller
      public function add_do(Request $request)
     {
     	$req=$request->all();
-    	$sub_button=[];
+    	//dd($req);
+    	
+    	$data=[];
     	$first_caidan_count=DB::table('caidan')->where(['menu_type'=>1])->count();
     	$two_caidan_count=DB::table('caidan')->where(['menu_type'=>2])->count();
     	//dd($two_caidan_count);
     	if($req['menu_type']==1){
-    		if($first_caidan_count<=2){
+    		if($first_caidan_count<3){
     		 // dd(11);
 		    		$result=DB::table('caidan')->insert([
 		    		'menu_name'=>$req['menu_name'],
@@ -121,7 +135,7 @@ class Caidan extends Controller
     			return redirect('caidan/add');
     		}
     	}if($req['menu_type']==2){
-    			if($two_caidan_count<=4){
+    			if($two_caidan_count<5){
     			$result=DB::table('caidan')->insert([
 	    		'menu_name'=>$req['menu_name'],
 	    		'menu_names'=>empty($req['menu_names'])?'':$req['menu_names'],
@@ -132,64 +146,59 @@ class Caidan extends Controller
 	    		$this->caidan();
     		}else{
     			return redirect('caidan/add');
-    		}
-    			
-	    		
-    	}
-    	
-    	
+    		}	
+    	}	
     	
   }
   	public function caidan()
   	{
-  		$re=DB::table('caidan')->groupBy('menu_name')->select('menu_name')->orderBy('menu_name')->get()->toArray();
-  		//dd($re);
-  		foreach($re as $v){
-  			$res=DB::table('caidan')->where(['menu_name'=>$v->menu_name])->get()->toArray();
-  			//dd($res);
-  			$button=[];
-  			foreach($res as $vo){
-  				if($vo->menu_type==1){//一级菜单
-  					if($vo->event_type=='view'){
-  						$data['button'][]=[
-  							'type'=>$vo->event_type,
-  							'name'=>$vo->menu_name,
-  							'url'=>$vo->menu->tag
-  						];
-  					}else{
-  						$data['button'][]=[
-  							'type'=>$vo->event_type,
-  							'name'=>$vo->menu_name,
-  							'url'=>$vo->menu_tag
-  						];
-  					}
-  				}
-  				if($vo->menu_type==2){//二级菜单
-  					if($vo->event_type=='view'){
-  						$sub_button[]=[
-  							'type'=>$vo->event_type,
+  		 $menu_info = DB::table('caidan')->groupBy('menu_name')->select(['menu_name'])->orderBy('menu_name')->get()->toArray();
+        foreach($menu_info as $v){
+            $menu_list =DB::table('caidan')->where(['menu_name'=>$v->menu_name])->get()->toArray();
+            $sub_button = [];
+            foreach($menu_list as $k=>$vo){
+                if($vo->menu_type == 1){ //一级菜单
+                    if($vo->event_type == 'view'){
+                        $data['button'][] = [
+                            'type'=>$vo->event_type,
+                            'name'=>$vo->menu_name,
+                            'url'=>$vo->menu_tag
+                        ];
+                    }else{
+                        $data['button'][] = [
+                            'type'=>$vo->event_type,
+                            'name'=>$vo->menu_name,
+                            'key'=>$vo->menu_tag
+                        ];
+                    }
+                }
+                if($vo->menu_type == 2){ //二级菜单
+                    //echo "<pre>";print_r($vo);
+                    if($vo->event_type == 'view'){
+                        $sub_button[] = [
+                            'type'=>$vo->event_type,
                             'name'=>$vo->menu_names,
                             'url'=>$vo->menu_tag
-  						];
-  					}elseif($vo->event_type == 'media_id'){
+                        ];
+                    }elseif($vo->event_type == 'media_id'){
 
-  					}
-
-  				}else{
-  					$sub_button[] = [
+                    }else{
+                        $sub_button[] = [
                             'type'=>$vo->event_type,
                             'name'=>$vo->menu_names,
                             'key'=>$vo->menu_tag
                         ];
-  				}
-  			}
-  		}
-  		 if(!empty($sub_button)){
+                    }
+                }
+            }
+            // echo "<pre>";print_r($sub_button);
+            if(!empty($sub_button)){
                 $data['button'][] = ['name'=>$v->menu_name,'sub_button'=>$sub_button];
             }
-         $url ='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->get_access_token();
-           //dd($url);
-          $datas = [
+        }
+       //echo "<pre>";print_r($data);
+        $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->get_access_token();
+        /*$data = [
             'button' => [
                 [
                     'type'=>'click',
@@ -217,15 +226,23 @@ class Caidan extends Controller
                     'key'=>'V1001_TODAY_MUSIC111'
                 ]
             ],
-        ];
-        //dd($datas);
-        $result=$this->post($url,json_encode($datas,JSON_UNESCAPED_UNICODE));
-
-        dd($result);
+        ];*/
+        $re = $this->post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+        dd($re);
   	}
-  	public function caidan_list(Request $request)
+  	public function del(Request $request)
   	{
-  		$re=DB::table('caidan')->get();
-  		dd($re);
+  		$access_token=$this->get_access_token();
+  		$id=$request->all()['id'];
+  		//dd($id);
+  		// $url=file_get_contents("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={$access_token}");
+  		// $re=json_decode($url);
+  		// dd($re);
+  		// $where=[
+  		// 	'id'=>$id,
+  		// ];
+  		//dd($where);
+  		 $res=DB::table('caidan')->where(['id'=>$id])->delete();
+  		 dd($res);
   	}
 }

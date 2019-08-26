@@ -147,6 +147,8 @@ Route::get('/agent/list','Agent@list');//
 Route::get('/caidan/add','Caidan@add');//
 Route::post('/caidan/add_do','Caidan@add_do');
 Route::get('/caidan/del','Caidan@del');//
+//油价
+Route::get('/price/price','PriceController@price');//
 //表白
 Route::get('/biaobai/code','Biaobai@code');//授权码
 Route::get('/biaobai/login','Biaobai@login');//授权登录
@@ -156,6 +158,7 @@ Route::get('/biaobai/lists','Biaobai@lists');//表白列表
 Route::get('/biaobai/biaobai_add','Biaobai@biaobai_add');
 Route::post('/biaobai/biaobai_add_do','Biaobai@biaobai_add_do');
 Route::post('/biaobai/send','Biaobai@send');
+Route::get('/biaobai/sends','Biaobai@sends');
 
 Route::get('/liuyand/login','LiuyanController@login');//授权码
 

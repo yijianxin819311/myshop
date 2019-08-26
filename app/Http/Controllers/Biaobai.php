@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use EasyWeChat\Factory;
+use App\Http\Tools\Wechat;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
+use EasyWeChat\Kernel\Messages\Text;
 class Biaobai extends Controller
 {
+      public $wechat;                                                                                                                                                                                                                  
+    public function __construct(Wechat $wechat)
+    {
+        $this->wechat = $wechat;
+    }
    //获取access_token
     public function  get_access_token()
     {
@@ -70,46 +78,72 @@ class Biaobai extends Controller
     }
     public function list(Request $request)
     {
-
-    $url="https://api.weixin.qq.com/cgi-bin/user/get?access_token=".$this->get_access_token()."&next_openid=";
-            $data=file_get_contents($url);
-            $data=json_decode($data,1);
-            $openid=$data['data']['openid'];
-            foreach($openid as $k=>$v){
-                //dd($v);
-                $list=DB::table('wechat_openid')->first();
-                
-                 ///$list=DB::table('wechat_openid')->where(['openid'=>$v])->value('subscribe');
-                //dd($list);
-               if(empty($list)){
-                   $http="https://api.weixin.qq.com/cgi-bin/user/info?access_token={$this->get_access_token()}&openid={$v}&lang=zh_CN";
-                    $user=json_decode(file_get_contents($http),1);
-                    //dd($user);
-                   $res[]=DB::table('wechat_openid')->insert([
-                       'openid'=>$user['openid'],
-                       'add_time'=>time(),
-                   ]);
-               }else{
-                $http="https://api.weixin.qq.com/cgi-bin/user/info?access_token={$this->get_access_token()}&openid={$v}&lang=zh_CN";
-                    $res[]=json_decode(file_get_contents($http),1);
+        $res=DB::table('wechat_openid')->get();
+        //dd($res);
+        // $openid = 'oia6dsw4xO1VWGXpqAhGhzHKY05k';
+        // //$openid=DB::table('wechat_openid')->select('openid')->get();
+        // // dd($openid);
+        //  $user = $this->wechat->app->user->get($openid);
+        //  dd($user);
+        // $app = app('wechat.official_account');
+        // $aa=$app->user->list($nextOpenId = null);
+        // dd($aa);
+    // $url="https://api.weixin.qq.com/cgi-bin/user/get?access_token=".$this->get_access_token()."&next_openid=";
+    // //dd($url);
+    //         $data=file_get_contents($url);
+    //         $datas=json_decode($data,1);
+    //         //dd($datas);
+    //         $openid=$datas['data']['openid'];
+    //         //dd($openid);
+    //         foreach($openid as $k=>$v){
+    //             //dd($v);
+    //             $list=DB::table('wechat_openid')->first();
+    //            if(empty($list)){
+    //                $http="https://api.weixin.qq.com/cgi-bin/user/info?access_token={$this->get_access_token()}&openid={$v}&lang=zh_CN";
+    //                 $user=json_decode(file_get_contents($http),1);
+    //                 //dd($user);
+    //                $res[]=DB::table('wechat_openid')->insert([
+    //                    'openid'=>$user['openid'],
+    //                    'add_time'=>time(),
+    //                ]);
+    //            }else{
+    //             $http="https://api.weixin.qq.com/cgi-bin/user/info?access_token={$this->get_access_token()}&openid={$v}&lang=zh_CN";
+    //                 $res[]=json_decode(file_get_contents($http),1);
                    
-               }
+    //            }
 
                
-            }
-            //dd($list);
+    //         }
+            //dd($list);    1`
             //dd($res);
         
     	return view('biaobai/list',['list'=>$res]);
     }
+    public function sends(Request $request)
+    {
+        $openid=$request->all();
+        //dd($openid);
+        return view('biaobai/sends',['openid'=>$openid['openid']]);
+    }
     public function send(Request $request)
     {
        $arr=$request->all();
+       $openid=DB::table('user_wechat')->value('openid');
+       $user = $this->wechat->app->user->get($openid);
+       //dd($openid);
        //dd($re);
        //表白信息入库
-       $list=DB::table('biaobai_list')->insert([
-            'openid'=>$arr['openid'],
+       // $list=DB::table('biaobai_list')->insert([
+       //      'openid'=>$arr['openid'],
+       //      'connect'=>$arr['connect'],
+       //      'type'=>$arr['type'],
+       //      'add_time'=>time(),
+       //  ]);
+       //dd($list);
+       $list=DB::table('biaobais')->insert([
+            'to_user'=>$arr['openid'],
             'connect'=>$arr['connect'],
+            'from_user'=>$openid,
             'type'=>$arr['type'],
             'add_time'=>time(),
         ]);
@@ -122,7 +156,7 @@ class Biaobai extends Controller
                    "url"=>"http://yijianxin.cn/biaobai/lists",
                    "data"=>[
                             "first"=> [
-                                "value"=>$arr['type']==1?'有人匿名向你表白':session('username').' 向你表白',
+                                "value"=>$arr['type']==2?'有人匿名向你表白':$user['nickname'].' 向你表白',
                                "color"=>"#173177"
                            ],
                            "keyword1"=>[
@@ -133,7 +167,7 @@ class Biaobai extends Controller
                            "value"=>date('Y-m-d H:i:s',time()),
                            "color"=>"#173177"
                        ],
-                           "remark"=>[
+                           "remark"=>[ 
                                 "value"=>"希望有情人终成眷属",
                                "color"=>"#173177"
                            ]
@@ -265,6 +299,7 @@ class Biaobai extends Controller
     	}	
     	
   }
+  //刷新菜单
   	public function biaobai()
   	{
   		 $menu_info = DB::table('biaobai')->groupBy('menu_name')->select(['menu_name'])->orderBy('menu_name')->get()->toArray();
@@ -278,12 +313,14 @@ class Biaobai extends Controller
                             'type'=>$vo->event_type,
                             'name'=>$vo->menu_name,
                             'url'=>$vo->menu_tag
+                             //$vo->menu_tag=='click'?"key":"url" => $vo->menu_tag,
                         ];
                     }else{
                         $data['button'][] = [
                             'type'=>$vo->event_type,
                             'name'=>$vo->menu_name,
                             'key'=>$vo->menu_tag
+                             //$vo->menu_tag=='click'?"key":"url" => $vo->menu_tag,
                         ];
                     }
                 }

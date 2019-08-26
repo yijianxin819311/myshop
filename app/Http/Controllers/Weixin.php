@@ -13,10 +13,14 @@ class Weixin extends Controller
 { 
     public $request;
     public $wechat;
+    public $redis;
     public function __construct(Request $request,Wechat $wechat)
     {
         $this->request = $request;
         $this->wechat = $wechat;
+       
+        $this->redis = new \Redis();
+        $this->redis->connect('127.0.0.1','6379');
     }
 
 
@@ -610,11 +614,12 @@ class Weixin extends Controller
             if($xml['Event'] == 'subscribe'){ //关注
                //isset检测变量是否设置
                 if(isset($xml['EventKey'])){
-                    // dd(11);
+                    //dd(11);
                     //拉新操作
                     $agent_code = explode('_',$xml['EventKey'])[1];
                     // dd($agent_code);
                     $agent_info = DB::table('user_agent')->where(['uid'=>$agent_code,'openid'=>$xml['FromUserName']])->first();
+                    //dd($agent_info);
                     if(empty($agent_info)){
                         DB::table('user_agent')->insert([
                             'uid'=>$agent_code,
@@ -623,14 +628,63 @@ class Weixin extends Controller
                         ]);
                     }
                 }
-                $message = '嗨!';
+                //$message = '嗨!';//新关注用户回复
+                $message = '欢迎使用本公司提供的油价查询功能!';
+                //dd($message);
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
             }
         }elseif($xml['MsgType'] == 'text'){
-            $message = '你好,欢迎来到我的世界';
-            $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-            echo $xml_str;
+            //dd($xml['Content']);
+            $preg_str='/^.*?油价$/';
+            //dd($preg_str);
+            $preg_result=preg_match($preg_str,$xml['Content']);
+            //dd($preg_result);
+             if($preg_result){
+                //查询油价
+                $city=substr($xml['Content'],0,-6);
+                //dd($city);
+                $url="http://shopdemo.18022480300.com/price/api";
+                $price_info=file_get_contents($url);
+                $price_arr=json_decode($price_info,1);
+                //dd($price_arr);
+                $support_arr=[];
+                foreach ($price_arr['result'] as $k => $v) {
+                     $support_arr[]=$v['city'];
+                }
+                if(!in_array($city,$support_arr)){
+                     $message = '查询城市不存在';
+                      $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                    echo $xml_str;die();
+                 }
+                 foreach ($price_arr['result']  as $v) {
+                    if($city==$v['city']){
+                        $this->redis->incr($city);
+                        $find_num=$this->redis->get($city);
+                        //缓存操作
+                        if($find_num>10){
+                            if($this->redis->exists($city.'信息')){
+                                //存在
+                                $v_info=$this->redis->get($city.'信息');
+                                $v=json_decode($v_info,1);
+                            }else{
+                                $this->redis->set($city.'信息',json_encode($v));
+                            }
+
+                        }
+                       //$message = $city.'目前油价：'."\n";
+                        $message = $city.'目前油价：'."\n".'92h：'.$v['92h']."\n".'95h：'.$v['95h']."\n".'98h：'.$v['98h']."\n".'0h：'.$v['0h'];
+                        $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                        echo $xml_str;
+                        die();
+                    }
+                 }
+            }
+            
+
+            // $message = '你好,欢迎来到我的世界';
+            // $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+            // echo $xml_str;
         }
         //echo $_GET['echostr'];  //第一次访问
     }

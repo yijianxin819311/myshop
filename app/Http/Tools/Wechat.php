@@ -7,10 +7,12 @@ use DB;
 class Wechat{
     public  $request;
     public  $client;
+    public  $app;
     public function __construct(Request $request,Client $client)
     {
         $this->request = $request;
         $this->client = $client;
+        $this->app = $app = app('wechat.official_account');
     }
     //通过openid 获得用户详细信息
     public function wechat_user_info($openid){

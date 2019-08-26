@@ -79,14 +79,14 @@ class Agent extends Controller
        	'expire_seconds'=>24*3600*60,
        	'action_name'=>'QR_LIMIT_STR_SCENE',
        	'action_info'=>[
-       		'scene'=>[
-       			'scene_str'=>$uid,
+       		   'scene'=>[
+       			 'scene_str'=>$uid,
        		]
        	]
        ];
        //dd($data);
        $user_info=$this->post($url,json_encode($data));
-       // dd($user_info);
+        //dd($user_info);
        $ticket=json_decode($user_info,1)['ticket'];
        //dd($ticket);
         

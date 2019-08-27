@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
             $redis = new \Redis();
             $redis->connect('127.0.0.1','6379');
             $app = app('wechat.official_account');
+            die;
             \Log::Info('123');
             //return;
             //业务逻辑

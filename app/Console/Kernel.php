@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Console;
-
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
+use App\Http\Tools\Wechat;
+                
 class Kernel extends ConsoleKernel
 {
     /**
@@ -24,8 +24,42 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+         $schedule->call(function () {
+            $redis = new \Redis();
+            $redis->connect('127.0.0.1','6379');
+            $app = app('wechat.official_account');
+            \Log::Info('123');
+            //return;
+            //业务逻辑
+            $price_info = file_get_contents('http://shopdemo.18022480300.com/price/api');
+            $price_arr = json_decode($price_info,1);
+            foreach($price_arr['result'] as $v){
+                if($redis->exists($v['city'].'信息')){
+                    $redis_info = json_decode($redis->get($v['city'].'信息'),1);
+                    foreach ($v as $k=>$vv){
+                        if($vv != $redis_info[$k]){
+                            //推送模板消息
+                            $openid_info = $app->user->list($nextOpenId = null);
+                            $openid_list = $openid_info['data'];
+                            foreach ($openid_list['openid'] as $vo){
+                                $app->template_message->send([
+                                    'touser' => $vo,
+                                    'template_id' =>'mF9Mmc19NAUtT7FtC2Sfm7fVHDCwagLbll6G-c0aUuc',
+                                    'url' => 'http://yijianxin.cn',
+                                    'data' => [
+                                        'first' => '',
+                                        'keyword1' => '',
+                                        'keyword2' => '',
+                                    ],
+                                ]);
+                            }
+                        }
+                    }
+                }
+            }
+       // })->daily();
+        })->everyMinute();
+    
     }
 
     /**

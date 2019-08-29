@@ -637,7 +637,7 @@ class Weixin extends Controller
                     }
                 }
                 //$message = '嗨!';//新关注用户回复
-                $message = '欢迎进入选课系统!';
+                $message = '欢迎.'session('username')'.'进入选课系统!'';
                 //dd($message);
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;

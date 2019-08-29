@@ -231,25 +231,30 @@ class Weixin extends Controller
             $url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$this->get_access_token()."";
            $data=[
                 'touser'=>$v->openid,
-                'template_id'=>'2i_oOXMLcOzImHbYGhWIc4pXgzF_6PKhIwjZWdCHL7A',
+                'template_id'=>'ImOrfmPtxkRTaDWtYfPuUIGauBRdWp52UjJHcRm9Ixc',
                 'url'=>'http://www.baidu.com',
                 'data'=>[
                     'first'=>[
-                        'value'=>'小柒流年',
+                        'value'=>'用户',
                         'color'=>''
                     ],
                     'keyword1'=>[
-                        'value'=>'爱',
+                        'value'=>'第一节课',
                         'color'=>''
                     ],
                     'keyword2'=>[
-                        'value'=>'一生一世',
+                        'value'=>'第二节课',
                         'color'=>''
                     ],
-                    'remark'=>[
-                        'value'=>'备注',
+                    'keyword3'=>[
+                        'value'=>'第三节课',
                         'color'=>''
                     ],
+                    'keyword4'=>[
+                        'value'=>'第四节课',
+                        'color'=>''
+                    ],
+                    
                 ]
 
            ];

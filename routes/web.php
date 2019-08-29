@@ -247,7 +247,21 @@ Route::post('/liuyan/do_login','Liuyan@do_login');
 Route::get('/liuyan/liuyan','Liuyan@liuyan');
 Route::post('liuyan_info','Liuyan@info');
 
-
+//课程管理
+Route::get('/kecheng/add','Kecheng@add');
+Route::get('/kecheng/adds','Kecheng@adds');
+Route::get('/kecheng/addss','Kecheng@addss');
+Route::post('/kecheng/add_do','Kecheng@add_do');
+Route::get('/kecheng/code','Kecheng@code');//授权码
+Route::get('/kecheng/login','Kecheng@login');//
+Route::get('/kecheng/login','Kecheng@login');//
+Route::post('/kecheng/event','Kecheng@event');
+Route::get('/kecheng/kecheng_add','Kecheng@kecheng_add');
+Route::post('/kecheng/kecheng_add_do','Kecheng@kecheng_add_do');
+Route::get('/kecheng/list','Kecheng@list');
+Route::get('/kecheng/update','Kecheng@update');
+Route::post('/kecheng/update_do','Kecheng@update_do');
+Route::get('/kecheng/moban','Kecheng@moban');
 
 //调用中间件
 // Route::group(['middleware' => ['liuyan_login']], function () {

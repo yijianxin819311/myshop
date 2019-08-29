@@ -16,6 +16,7 @@ class Wechat{
     }
     //通过openid 获得用户详细信息
     public function wechat_user_info($openid){
+       
         $access_token = $this->get_access_token();
         $wechat_user = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN");
         $user_info = json_decode($wechat_user,1);

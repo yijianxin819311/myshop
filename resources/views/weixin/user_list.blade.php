@@ -11,7 +11,7 @@
 <h4>粉丝列表</h4>
 		<table border=1 width="500">
 			<tr>
-				<td>id</td>
+				<td>openid</td>
 				
 				<td>操作</td>	
 			</tr>
@@ -19,9 +19,9 @@
 			<tr>
 				<td>{{$v->openid}}</td>
 				<td>
-					<a href="{{url('weixin/lists')}}?id={{$v->id}}">详情</a>
-					<a href="">我要留言</a>
-					<a href="">我要表白</a>
+					<a href="{{url('weixin/lists')}}?openid={{$v->openid}}">详情</a>
+					<a href="{{url('kecheng/add')}}?openid={{$v->openid}}">课程管理</a>
+					<a href="{{url('kecheng/list')}}?openid={{$v->openid}}">查看课程</a>
 				</td>
 			</tr>
 		@endforeach

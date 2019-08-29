@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Carbon\Carbon;
 use EasyWeChat\Factory;
 use App\Http\Tools\Wechat;
 use GuzzleHttp\Client;
@@ -82,7 +83,7 @@ class Kecheng extends Controller
      //微信登录
     public function login()
     {
-        $redirect_uri="http://www.myshop.com/kecheng/code";
+        $redirect_uri="http://www.yijianxin.cn/kecheng/code";
         //dd($redirect_uri);
         $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=".env('WECHAT_APPID')."&redirect_uri=".urlencode($redirect_uri)."&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect ";
         //dd($url);
@@ -113,6 +114,103 @@ class Kecheng extends Controller
         }
 
     }
+    //微信消息推送
+    public function event()
+    {//$this->checkSignature();
+        //dd(11);
+        $data = file_get_contents("php://input");
+        //dd($data);
+        //解析XML
+        $xml = simplexml_load_string($data,'SimpleXMLElement', LIBXML_NOCDATA);//将xml字符串 转换成对象
+        $xml = (array)$xml; //转化成数组
+        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
+        file_put_contents(storage_path('logs/wx_event.log'),$log_str,FILE_APPEND);
+        // dd($xml);
+        if($xml['MsgType'] == 'event'){
+            if($xml['Event'] == 'subscribe'){ //关注
+               //isset检测变量是否设置
+                if(isset($xml['EventKey'])){
+                    //dd(11);
+                    //拉新操作
+                    $agent_code = explode('_',$xml['EventKey'])[1];
+                    // dd($agent_code);
+                    $agent_info = DB::table('user_agent')->where(['uid'=>$agent_code,'openid'=>$xml['FromUserName']])->first();
+                    //dd($agent_info);
+                    if(empty($agent_info)){
+                        DB::table('user_agent')->insert([
+                            'uid'=>$agent_code,
+                            'openid'=>$xml['FromUserName'],
+                            'add_time'=>time()
+                        ]);
+                    }
+                }
+                //$message = '嗨!';//新关注用户回复
+                $message = '欢迎进入选课系统!';
+                //dd($message);
+                $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                echo $xml_str;
+            }
+        }elseif($xml['MsgType'] == 'text'){
+            //dd($xml['Content']);
+            $preg_str='/^.*?油价$/';
+            //dd($preg_str);
+            $preg_result=preg_match($preg_str,$xml['Content']);
+            //dd($preg_result);
+             if($preg_result){
+                //查询油价
+                $city=substr($xml['Content'],0,-6);
+                //dd($city);
+                $url="http://shopdemo.18022480300.com/price/api";
+                $price_info=file_get_contents($url);
+                $price_arr=json_decode($price_info,1);
+                //dd($price_arr);
+                $support_arr=[];
+                foreach ($price_arr['result'] as $k => $v) {
+                     $support_arr[]=$v['city'];
+                }
+                if(!in_array($city,$support_arr)){
+                     $message = '查询城市不存在';
+                      $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                    echo $xml_str;die(); 
+                 }
+                 //dd($price_arr['result']);
+                 foreach ($price_arr['result']  as $v) {
+                    //dd($v);
+                    if($city==$v['city']){
+                        $this->redis->incr($city);
+                        $find_num=$this->redis->get($city);
+                        // dd($find_num);
+                        //缓存操作
+                        if($find_num>10){
+                            //dd(11);
+                            if($this->redis->exists($city.'信息')){
+                                //存在
+                                
+                                $v_info=$this->redis->get($city.'信息');
+                                $v=json_decode($v_info,1);
+                                //dd($v);
+                            }else{
+                                $this->redis->set($city.'信息',json_encode($v));
+                            }
+
+                        }
+                      
+                        $message = $city.'目前油价：'."\n".'92h：'.$v['92h']."\n".'95h：'.$v['95h']."\n".'98h：'.$v['98h']."\n".'0h：'.$v['0h'];
+                        $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                        echo $xml_str;
+                        die();
+                    }
+                 }
+            }
+            
+  
+            // $message = '你好,欢迎来到我的世界';
+            // $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+            // echo $xml_str;
+        }
+        //echo $_GET['echostr'];  //第一次访问
+    }
+
   
    public  function add()
    {
@@ -134,8 +232,7 @@ class Kecheng extends Controller
 
    		$arr=$request->all();
    		//dd($arr);
-      	$openid=DB::table('kecheng')->first();
-      	if(empty($openid)){
+      	
       		$list=DB::table('kecheng')->insert([
             'openid'=>$arr['openid'],
             'first_kecheng'=>$arr['first_kecheng'],
@@ -144,9 +241,7 @@ class Kecheng extends Controller
             'four_kecheng'=>$arr['four_kecheng'],
             'add_time'=>time(),
         	]);
-      	}else{
-      		return redirect('kecheng/adds');
-      	}
+      	
        //dd($user);
        
       if($list){
@@ -165,5 +260,71 @@ class Kecheng extends Controller
    		$openid=$request->all();
        //dd($openid);
         return view('kecheng/update',['openid'=>$openid['openid']]);
+   }
+    public  function update_do(Request $request)
+   {
+   		$arr=$request->all();
+   		// dd($req);
+   		//$re=DB::table('kecheng')->select('add_time')->first();
+   		//dd($re);
+   		$first = Carbon::create(2019, 9, 1);
+   		// dd($first);
+   		$times=$first->toDateTimeString();
+   		//dd($times);
+   		$time=Carbon::now()->toDateTimeString();
+   		 //dd($time);
+   		if($time>$times){
+   			echo "当前日期超过2019年9月1日,不能进行修改";die();
+   		}else{
+   			$re=DB::table('kecheng')->where(['openid'=>$arr['openid']])->update([
+   					
+		            'first_kecheng'=>$arr['first_kecheng'],
+		            'two_kecheng'=>$arr['two_kecheng'],
+		            'three_kecheng'=>$arr['three_kecheng'],
+		            'four_kecheng'=>$arr['four_kecheng'],
+		            'add_time'=>time(),
+   				]);
+   			dd($re);
+   		}
+   		
+   }
+   public function moban()
+   {
+   		$openid_info = DB::connection('mysql')->table("wechat_openid")->select('openid')->limit(10)->get()->toArray();
+        //dd($openid_info);
+        foreach($openid_info as $v){
+            $url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$this->wechat->get_access_token()."";
+           $data=[
+                'touser'=>$v->openid,
+                'template_id'=>'ImOrfmPtxkRTaDWtYfPuUIGauBRdWp52UjJHcRm9Ixc',
+                'url'=>'http://www.baidu.com',
+                'data'=>[
+                    'first'=>[
+                        'value'=>'用户',
+                        'color'=>''
+                    ],
+                    'keyword1'=>[
+                        'value'=>'第一节课',
+                        'color'=>''
+                    ],
+                    'keyword2'=>[
+                        'value'=>'第二节课',
+                        'color'=>''
+                    ],
+                    'keyword3'=>[
+                        'value'=>'第三节课',
+                        'color'=>''
+                    ],
+                    'keyword4'=>[
+                        'value'=>'第四节课',
+                        'color'=>''
+                    ],
+                    
+                ]
+
+           ];
+          $re=$this->post($url,json_encode($data));
+           dd($re);
+        }
    }
 }

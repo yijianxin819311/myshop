@@ -14,11 +14,12 @@ class Weixin extends Controller
     public $request;
     public $wechat;
     public $redis;
+    public $app;
     public function __construct(Request $request,Wechat $wechat)
     {
         $this->request = $request;
         $this->wechat = $wechat;
-       
+        $this->app = $app = app('wechat.official_account');
         $this->redis = new \Redis();
         $this->redis->connect('127.0.0.1','6379');
     }
@@ -103,7 +104,7 @@ class Weixin extends Controller
     	$redis->connect('127.0.0.1','6379');
     	$access_key="weixin_access_token";
     	if($redis->exists($access_key)){
-    		//从缓存取
+    		//从缓存取获取用GET
     		$access_token=$redis->get($access_key);
     	}else{
     		//从微信接口获取
@@ -113,7 +114,7 @@ class Weixin extends Controller
 
     		$access_token=$result['access_token'];
     		$expire_time=$result['expires_in'];
-    		//加人缓存
+    		//加人缓存设置缓存用set
     		$redis->set($access_key,$access_token,$expire_time);
     	}
     	return $access_token;
@@ -121,6 +122,8 @@ class Weixin extends Controller
     //粉丝列表
     public function get_user_list()
     {
+        // $openid = $this->app->user->list($nextOpenId = null)['data']['openid'];  // $nextOpenId 可选
+        // dd($openid);
     	$access_token=$this->get_access_token();
     	//dd($access_token);
     	$info=file_get_contents("https://api.weixin.qq.com/cgi-bin/user/get?access_token={$access_token}&next_openid=");
@@ -179,13 +182,17 @@ class Weixin extends Controller
         return view('weixin/lists',['res'=>$user_info]); 
     }
 
-    // public function wechat_user_info($openid){
-    //     $access_token = $this-get_access_token();
-    //     $wechat_user = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN");
-    //     $user_info = json_decode($wechat_user,1);
-    //     dd($user_info);
-    //     return $user_info;
-    // }
+    public function wechat_user_info(){
+        // $openid = $this->app->user->list($nextOpenId = null)['data']['openid'];  // $nextOpenId 可选
+        // dd($openid);
+        // $user = $this->app->user->get($openid);
+        // dd($user);
+        $aess_token = $this->get_access_token();
+        $wechat_user = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$openid."&lang=zh_CN");
+        $user_info = json_decode($wechat_user,1);
+        dd($user_info);
+        return $user_info;
+    }
 
 
 
@@ -330,8 +337,7 @@ class Weixin extends Controller
         //echo '<pre>';print_r($h);echo '</pre>';die;
         //获取文件名
         $file_info = $response->getHeader('Content-disposition');
-        $file_name = substr(rtrim($file_info[0],'"'),-20);
-        //$wx_image_path = 'wx/images/'.$file_name;
+        $file_name = substr(rtrim($file_info[0],'"'),-20);                                        
         //保存图片
         $path = 'weixin/voice/'.$file_name;
         $re = Storage::put($path, $response->getBody());
@@ -599,7 +605,7 @@ class Weixin extends Controller
         dd(json_decode($re,1));
     }
 
-    
+
     //微信消息推送
     public function event()
     {//$this->checkSignature();
@@ -631,7 +637,7 @@ class Weixin extends Controller
                     }
                 }
                 //$message = '嗨!';//新关注用户回复
-                $message = '欢迎使用本公司提供的油价查询功能!';
+                $message = '欢迎进入选课系统!';
                 //dd($message);
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
@@ -657,24 +663,30 @@ class Weixin extends Controller
                 if(!in_array($city,$support_arr)){
                      $message = '查询城市不存在';
                       $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-                    echo $xml_str;die();
+                    echo $xml_str;die(); 
                  }
+                 //dd($price_arr['result']);
                  foreach ($price_arr['result']  as $v) {
+                    //dd($v);
                     if($city==$v['city']){
                         $this->redis->incr($city);
                         $find_num=$this->redis->get($city);
+                        // dd($find_num);
                         //缓存操作
                         if($find_num>10){
+                            //dd(11);
                             if($this->redis->exists($city.'信息')){
                                 //存在
+                                
                                 $v_info=$this->redis->get($city.'信息');
                                 $v=json_decode($v_info,1);
+                                //dd($v);
                             }else{
                                 $this->redis->set($city.'信息',json_encode($v));
                             }
 
                         }
-                       //$message = $city.'目前油价：'."\n";
+                      
                         $message = $city.'目前油价：'."\n".'92h：'.$v['92h']."\n".'95h：'.$v['95h']."\n".'98h：'.$v['98h']."\n".'0h：'.$v['0h'];
                         $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                         echo $xml_str;
@@ -683,7 +695,7 @@ class Weixin extends Controller
                  }
             }
             
-
+  
             // $message = '你好,欢迎来到我的世界';
             // $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
             // echo $xml_str;

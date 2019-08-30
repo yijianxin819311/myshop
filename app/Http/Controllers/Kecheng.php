@@ -143,7 +143,7 @@ class Kecheng extends Controller
                             'add_time'=>time()
                         ]);
                     }
-                }
+                } 
                 //$message = '嗨!';//新关注用户回复
                 $message = '欢迎进入选课系统!';
                 //dd($message);
@@ -327,4 +327,28 @@ class Kecheng extends Controller
            dd($re);
         }
    }
+
+   public function class_caidan(){
+        $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->get_access_token().'';
+//        dd($url);
+        $data=[
+            "button"=>[
+                 [
+                     "type"=>"click",
+                      "name"=>"查看课程",
+                      "key"=>"kecheng",
+                  ],
+                [
+                    "type"=>"view",
+                    "name"=>"课程管理",
+                    "url"=>'http://www.yijianxin.cn/kecheng/add',
+                ],
+        ],
+    ];
+//        dd($data);
+        $data=$this->post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+        dd($data);
+
+    }
+
 }

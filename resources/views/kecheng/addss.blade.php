@@ -11,28 +11,28 @@
         <input type="hidden" name="openid" value="{{$openid}}}">
       @csrf
       第一节课：<select name="first_kecheng" id="">
-            <option value="1">php</option>
-            <option value="2">语文</option>
-            <option value="3">数学</option>
-            <option value="4">英语</option>
+            <option value="php">php</option>
+            <option value="语文">语文</option>
+            <option value="数学">数学</option>
+            <option value="英语">英语</option>
           </select><br>
       第二节课：<select name="two_kecheng" id="">
-            <option value="1">php</option>
-            <option value="2">语文</option>
-            <option value="3">数学</option>
-            <option value="4">英语</option>
+             <option value="php">php</option>
+            <option value="语文">语文</option>
+            <option value="数学">数学</option>
+            <option value="英语">英语</option>
           </select><br>
       第三节课：<select name="three_kecheng" id="">
-            <option value="1">php</option>
-            <option value="2">语文</option>
-            <option value="3">数学</option>
-            <option value="4">英语</option>
+             <option value="php">php</option>
+            <option value="语文">语文</option>
+            <option value="数学">数学</option>
+            <option value="英语">英语</option>
           </select><br>
       第四节课：<select name="four_kecheng" id="">
-            <option value="1">php</option>
-            <option value="2">语文</option>
-            <option value="3">数学</option>
-            <option value="4">英语</option>
+             <option value="php">php</option>
+            <option value="语文">语文</option>
+            <option value="数学">数学</option>
+            <option value="英语">英语</option>
           </select><br>
       <input type="submit" value="提交">
 

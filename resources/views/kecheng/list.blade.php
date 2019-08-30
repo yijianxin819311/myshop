@@ -11,6 +11,7 @@
 <div align="center">
     <table width="300" border="1">
         <tr>
+            <th>编号</th>
             <th>第一节课</th>
             <th>第二节课</th>
             <th>第三节课</th>
@@ -20,6 +21,7 @@
         </tr>
         @foreach($list as $k=>$v)
             <tr>
+                <td>{{$v->id}}</td>
                 <td>{{$v->first_kecheng}}</td>
                 <td>{{$v->two_kecheng}}</td>
                 <td>{{$v->three_kecheng}}</td>

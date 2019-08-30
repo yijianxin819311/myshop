@@ -262,6 +262,7 @@ Route::get('/kecheng/list','Kecheng@list');
 Route::get('/kecheng/update','Kecheng@update');
 Route::post('/kecheng/update_do','Kecheng@update_do');
 Route::get('/kecheng/moban','Kecheng@moban');
+Route::get('/kecheng/class_caidan', 'Kecheng@class_caidan');
 
 //调用中间件
 // Route::group(['middleware' => ['liuyan_login']], function () {

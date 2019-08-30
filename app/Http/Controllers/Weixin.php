@@ -661,7 +661,7 @@ class Weixin extends Controller
                     $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                     echo $xml_str;
                 }elseif($xml['EventKey']=='kecheng'){
-                $data =DB::table('class')->where('openid',$xml['FromUserName'])->first();
+                $data =DB::table('kecheng')->where('openid',$xml['FromUserName'])->first();
 //                $data=json_decode($data,1);
 //                $data=json_decode($data,1);
 //                    dd($data->class1);

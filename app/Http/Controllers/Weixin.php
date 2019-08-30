@@ -682,7 +682,8 @@ class Weixin extends Controller
 
             }else{
 
-                $message = '你好!';
+                $user = DB::table('user_wechat')->where('openid',$xml['FromUserName'])->first();
+                $message = '欢迎'.'$user->name'.'进入选课系统!';
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
             }

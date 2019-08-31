@@ -614,132 +614,95 @@ class Weixin extends Controller
 
     //微信消息推送
     public function event()
-    {//$this->checkSignature();
-        //dd(11);
+    {
+        //$this->checkSignature();
         $data = file_get_contents("php://input");
-        //dd($data);
         //解析XML
-        $xml = simplexml_load_string($data,'SimpleXMLElement', LIBXML_NOCDATA);//将xml字符串 转换成对象
+        $xml = simplexml_load_string($data,'SimpleXMLElement', LIBXML_NOCDATA);        //将 xml字符串 转换成对象
         $xml = (array)$xml; //转化成数组
-         \Log::Info(json_encode($xml));  //输出收到的信息
+        //echo "<pre>";print_r($xml);
+        \Log::Info(json_encode($xml));  //输出收到的信息
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents(storage_path('logs/wx_event.log'),$log_str,FILE_APPEND);
-
-        // dd($xml);
         if($xml['MsgType'] == 'event'){
             if($xml['Event'] == 'subscribe'){ //关注
-               //isset检测变量是否设置
-                if(isset($xml['EventKey'])){
-                    //dd(11);
+                if(!empty($xml['EventKey'])){
                     //拉新操作
                     $agent_code = explode('_',$xml['EventKey'])[1];
-                    // dd($agent_code);
-                    $agent_info = DB::table('user_agent')->where(['uid'=>$agent_code,'openid'=>$xml['FromUserName']])->first();
-                    //dd($agent_info);
+                    $agent_info = DB::connection('mysql_cart')->table('user_agent')->where(['uid'=>$agent_code,'openid'=>$xml['FromUserName']])->first();
                     if(empty($agent_info)){
-                        DB::table('user_agent')->insert([
+                        DB::connection('mysql_cart')->table('user_agent')->insert([
                             'uid'=>$agent_code,
                             'openid'=>$xml['FromUserName'],
                             'add_time'=>time()
                         ]);
                     }
                 }
-                //$message = '嗨!';//新关注用户回复
+                //关注回复
                 $user = DB::table('user_wechat')->where('openid',$xml['FromUserName'])->first();
                 $message = '欢迎'.$user->name.'进入选课系统!';
-                //dd($message);
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
-            }elseif($xml['Event']=='CLICK'){
-                if($xml['EventKey']=='wodebiaobai'){
-                    $openid=$xml['FromUserName'];
-                    $data = DB::table('biao_bai')->where('openid',$openid)->get();
-                    $message='';
-                    foreach ($data as $v){
-                        $message .= '收到'.$v->name.'表白:'.$v->text."\n";
+            }elseif($xml['Event'] == 'location_select'){
+                $message = $xml['SendLocationInfo']->Label;
+                \Log::Info($message);
+                $xml_str = '<xml><ToUserName><![CDATA[otAUQ1UtX-nKATwQMq5euKLME2fg]]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                echo $xml_str;
+            }elseif($xml['Event'] == 'CLICK'){
+                if($xml['EventKey'] == 'my_biaobai'){
+                    $biaobai_info = DB::connection('mysql_cart')->table('biaobai')->where(['from_user'=>$xml['FromUserName']])->get()->toArray();
+                    $message = '';
+                    foreach($biaobai_info as $v){
+                        $message .= $v->content."\n";
                     }
-//                    dd($message);
-////                    dd($data);
-//                    $message = '';
                     $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                     echo $xml_str;
-                }elseif($xml['EventKey']=='kecheng'){
-                $data =DB::table('kecheng')->where('openid',$xml['FromUserName'])->first();
-                //dd($data);
-
-                if(empty($data)){
-                    $message='没有选修课程,请选修课程';
-                    $xml_str = '<xml><`ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-                    echo $xml_str;
-                }else{
-                    $user = DB::table('user_wechat')->where('openid',$xml['FromUserName'])->first();
-
-                    $message='欢迎'.$user->name."\n".'第一节'.$data->first_kecheng."\n".'第2节'.$data->two_kecheng."\n".'第3节'.$data->three_kecheng."\n".'第4节'.$data->four_kecheng;
-                    $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-                    echo $xml_str;
-                    }
+                }elseif($xml['EventKey'] == 'kecheng'){
+                    dd(1);
                 }
-            }elseif($xml['EventKey']=='qiandao'){
-
             }
-        }
-        elseif($xml['MsgType'] == 'text'){
-            //dd($xml['Content']);
-            $preg_str='/^.*?油价$/';
-            //dd($preg_str);
-            $preg_result=preg_match($preg_str,$xml['Content']);
-            //dd($preg_result);
-             if($preg_result){
+        }elseif($xml['MsgType'] == 'text'){
+            $preg_result = preg_match('/.*?油价/',$xml['Content']);
+            if($preg_result){
                 //查询油价
-                $city=substr($xml['Content'],0,-6);
-                //dd($city);
-                $url="http://shopdemo.18022480300.com/price/api";
-                $price_info=file_get_contents($url);
-                $price_arr=json_decode($price_info,1);
-                //dd($price_arr);
-                $support_arr=[];
-                foreach ($price_arr['result'] as $k => $v) {
-                     $support_arr[]=$v['city'];
+                $city = substr($xml['Content'],0,-6);
+                $price_info = file_get_contents('http://shopdemo.18022480300.com/price/api');
+                $price_arr = json_decode($price_info,1);
+                $support_arr = [];
+                foreach($price_arr['result'] as $v){
+                    $support_arr[] = $v['city'];
                 }
                 if(!in_array($city,$support_arr)){
-                     $message = '查询城市不存在';
-                      $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-                    echo $xml_str;die(); 
-                 }
-                 //dd($price_arr['result']);
-                 foreach ($price_arr['result']  as $v) {
-                    //dd($v);
-                    if($city==$v['city']){
+                    $message = '查询城市不支持！';
+                    $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                    echo $xml_str;
+                    die();
+                }
+                foreach($price_arr['result'] as $v){
+                    if($city == $v['city']){
                         $this->redis->incr($city);
-                        $find_num=$this->redis->get($city);
-                        // dd($find_num);
+                        $find_num = $this->redis->get($city);
                         //缓存操作
-                        if($find_num>10){
-                            //dd(11);
+                        if($find_num > 10){
                             if($this->redis->exists($city.'信息')){
                                 //存在
-                                
-                                $v_info=$this->redis->get($city.'信息');
-                                $v=json_decode($v_info,1);
-                                //dd($v);
+                                $v_info = $this->redis->get($city.'信息');
+                                $v = json_decode($v_info,1);
                             }else{
                                 $this->redis->set($city.'信息',json_encode($v));
                             }
-
                         }
-                      
+                        //$message = $city.'目前油价：'."\n";
                         $message = $city.'目前油价：'."\n".'92h：'.$v['92h']."\n".'95h：'.$v['95h']."\n".'98h：'.$v['98h']."\n".'0h：'.$v['0h'];
                         $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                         echo $xml_str;
                         die();
                     }
-                 }
+                }
             }
-            
-  
-            // $message = '你好,欢迎来到我的世界';
-            // $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-            // echo $xml_str;
+            /*$message = '你好!';
+            $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+            echo $xml_str;*/
         }
         //echo $_GET['echostr'];  //第一次访问
     }

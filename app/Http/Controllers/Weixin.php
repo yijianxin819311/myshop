@@ -620,7 +620,6 @@ class Weixin extends Controller
         //解析XML
         $xml = simplexml_load_string($data,'SimpleXMLElement', LIBXML_NOCDATA);        //将 xml字符串 转换成对象
         $xml = (array)$xml; //转化成数组
-
         //echo "<pre>";print_r($xml);
         \Log::Info(json_encode($xml));  //输出收到的信息
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
@@ -639,10 +638,7 @@ class Weixin extends Controller
                         ]);
                     }
                 }
-                //dd(11);
-                //关注回复
-                $user = DB::table('user_wechat')->first();
-                $message = '欢迎'.$user->name.'进入选课系统!';
+                $message = '你好!';
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
             }elseif($xml['Event'] == 'location_select'){
@@ -660,7 +656,7 @@ class Weixin extends Controller
                     $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                     echo $xml_str;
                 }elseif($xml['EventKey'] == 'kecheng'){
-                    dd(1);
+                    
                 }
             }
         }elseif($xml['MsgType'] == 'text'){
@@ -709,6 +705,7 @@ class Weixin extends Controller
         //echo $_GET['echostr'];  //第一次访问
     }
 
-    
-    
+
+
+
 }

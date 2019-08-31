@@ -670,11 +670,11 @@ class Weixin extends Controller
                     $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                     echo $xml_str;
                 }elseif($xml['EventKey']=='kecheng'){
-                    dd(11);
+                    //dd(11);
                 $data =DB::table('kecheng')->where('openid',$xml['FromUserName'])->first();
                 //dd($data);
                 if(empty($data)){
-                    dd(22);
+                    //dd(22);
                     $message='没有选修课程,请选修课程';
                     $xml_str = '<xml><`ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                     echo $xml_str;

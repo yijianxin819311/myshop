@@ -648,11 +648,26 @@ class Weixin extends Controller
                 //dd($message);
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
-          }elseif($xml['EventKey'] == 'kecheng'){
-                //dd(11);
-                $message = '还没选择课程，请先选择课程';
-                $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-                echo $xml_str;
+          }elseif($xml['Event'] == 'CLICK'){
+                //echo 11;
+                if($xml['EventKey'] == 'kecheng'){
+                    //echo 22;die;
+                    $data=DB::table('kecheng')->first();
+                    //dd($data);
+                    if(empty($data)){
+                        $message = '还没选择课程，请先选择课程';
+                        $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                        echo $xml_str;
+                    }else{
+                        $user = DB::table('user_wechat')->where('openid',$xml['FromUserName'])->first();
+
+                        $message='欢迎'.$user->name."\n".'第一节'.$data->first_kecheng."\n".'第2节'.$data->two_kecheng."\n".'第3节'.$data->three_kecheng."\n".'第4节'.$data->four_kecheng;
+                        $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                        echo $xml_str;
+                    }
+
+                }
+
             }
 
         }elseif($xml['MsgType'] == 'text'){

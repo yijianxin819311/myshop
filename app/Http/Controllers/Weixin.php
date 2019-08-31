@@ -656,7 +656,7 @@ class Weixin extends Controller
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
             }elseif($xml['Event']=='CLICK'){
-//                dd(33);
+
                 if($xml['EventKey']=='wodebiaobai'){
                     $openid=$xml['FromUserName'];
                     $data = DB::table('biao_bai')->where('openid',$openid)->get();
@@ -670,16 +670,16 @@ class Weixin extends Controller
                     $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                     echo $xml_str;
                 }elseif($xml['EventKey']=='kecheng'){
-                    //dd(11);
+
                 $data =DB::table('kecheng')->where('openid',$xml['FromUserName'])->first();
-                //dd($data);
+
                 if(empty($data)){
-                    //dd(22);
+
                     $message='没有选修课程,请选修课程';
                     $xml_str = '<xml><`ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                     echo $xml_str;
                 }else{
-                    dd(33);
+
                     $user = DB::table('user_wechat')->where('openid',$xml['FromUserName'])->first();
 
                     $message='欢迎'.$user->name."\n".'第一节'.$data->first_kecheng."\n".'第2节'.$data->two_kecheng."\n".'第3节'.$data->three_kecheng."\n".'第4节'.$data->four_kecheng;

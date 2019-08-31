@@ -670,7 +670,7 @@ class Weixin extends Controller
                     $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                     echo $xml_str;
                 }elseif($xml['EventKey']=='kecheng'){
-
+                    \Log::Info(json_encode($xml));  //输出收到的信息
                 $data =DB::table('kecheng')->where('openid',$xml['FromUserName'])->first();
 
                 if(empty($data)){

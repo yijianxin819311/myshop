@@ -259,7 +259,9 @@ class Kecheng extends Controller
    {
    		$openid=$request->all();
        //dd($openid);
-        return view('kecheng/update',['openid'=>$openid['openid']]);
+       $data=DB::table('kecheng')->where('openid',$openid['openid'])->first();
+       //dd($data);
+        return view('kecheng/update',['data'=>$data]);
    }
     public  function update_do(Request $request)
    {

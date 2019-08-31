@@ -8,27 +8,27 @@
   <center>
     <form action="{{url('kecheng/update_do')}}" method="post">
       <h3>课程管理</h3>
-        <input type="hidden" name="openid" value="{{$openid}}}">
+        <input type="hidden" name="openid" value="{{$data->openid}}}">
       @csrf
-      第一节课：<select name="first_kecheng" id="" value="">
+      第一节课：<select name="first_kecheng" id="" value="{{$data->first_kecheng}}">
             <option value="1">php</option>
             <option value="2">语文</option>
             <option value="3">数学</option>
             <option value="4">英语</option>
           </select><br>
-      第二节课：<select name="two_kecheng" id="" value="">
+      第二节课：<select name="two_kecheng" id="" value="{{$data->two_kecheng}}">
             <option value="1">php</option>
             <option value="2">语文</option>
             <option value="3">数学</option>
             <option value="4">英语</option>
           </select><br>
-      第三节课：<select name="three_kecheng" id="" value="">
+      第三节课：<select name="three_kecheng" id="" value="{{$data->three_kecheng}}">
             <option value="1">php</option>
             <option value="2">语文</option>
             <option value="3">数学</option>
             <option value="4">英语</option>
           </select><br>
-      第四节课：<select name="four_kecheng" id="" value="">
+      第四节课：<select name="four_kecheng" id="" value="{{$data->four_kecheng}}">
             <option value="1">php</option>
             <option value="2">语文</option>
             <option value="3">数学</option>

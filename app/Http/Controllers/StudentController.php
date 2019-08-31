@@ -18,7 +18,7 @@ class StudentController extends Controller
     	echo "访问次数".$num;
     	$res=$request->all();
     	//var_dump($res);$search='';
-    	
+    	$search='';
     	if(!empty($res['search'])){
     		$search=$res['search'];
     		$info=DB::table('student')

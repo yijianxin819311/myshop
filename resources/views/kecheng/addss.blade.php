@@ -8,7 +8,7 @@
   <center>
     <form action="{{url('kecheng/add_do')}}" method="post">
       <h3>课程管理</h3>
-        <input type="hidden" name="openid" value="{{$openid}}}">
+        <input type="hidden" name="openid" value="{{$openid}}">
       @csrf
       第一节课：<select name="first_kecheng" id="">
             <option value="php">php</option>

@@ -620,6 +620,7 @@ class Weixin extends Controller
         //解析XML
         $xml = simplexml_load_string($data,'SimpleXMLElement', LIBXML_NOCDATA);        //将 xml字符串 转换成对象
         $xml = (array)$xml; //转化成数组
+
         //echo "<pre>";print_r($xml);
         \Log::Info(json_encode($xml));  //输出收到的信息
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
@@ -629,17 +630,18 @@ class Weixin extends Controller
                 if(!empty($xml['EventKey'])){
                     //拉新操作
                     $agent_code = explode('_',$xml['EventKey'])[1];
-                    $agent_info = DB::connection('mysql_cart')->table('user_agent')->where(['uid'=>$agent_code,'openid'=>$xml['FromUserName']])->first();
+                    $agent_info = DB::table('user_agent')->where(['uid'=>$agent_code,'openid'=>$xml['FromUserName']])->first();
                     if(empty($agent_info)){
-                        DB::connection('mysql_cart')->table('user_agent')->insert([
+                        DB::table('user_agent')->insert([
                             'uid'=>$agent_code,
                             'openid'=>$xml['FromUserName'],
                             'add_time'=>time()
                         ]);
                     }
                 }
+                //dd(11);
                 //关注回复
-                $user = DB::table('user_wechat')->where('openid',$xml['FromUserName'])->first();
+                $user = DB::table('user_wechat')->first();
                 $message = '欢迎'.$user->name.'进入选课系统!';
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
@@ -650,7 +652,7 @@ class Weixin extends Controller
                 echo $xml_str;
             }elseif($xml['Event'] == 'CLICK'){
                 if($xml['EventKey'] == 'my_biaobai'){
-                    $biaobai_info = DB::connection('mysql_cart')->table('biaobai')->where(['from_user'=>$xml['FromUserName']])->get()->toArray();
+                    $biaobai_info = DB::table('biaobai')->where(['from_user'=>$xml['FromUserName']])->get()->toArray();
                     $message = '';
                     foreach($biaobai_info as $v){
                         $message .= $v->content."\n";

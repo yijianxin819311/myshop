@@ -122,6 +122,7 @@ class Weixin extends Controller
     //粉丝列表
     public function get_user_list()
     {
+
         // $openid = $this->app->user->list($nextOpenId = null)['data']['openid'];  // $nextOpenId 可选
         // dd($openid);
     	$access_token=$this->get_access_token();
@@ -620,13 +621,18 @@ class Weixin extends Controller
         //解析XML
         $xml = simplexml_load_string($data,'SimpleXMLElement', LIBXML_NOCDATA);//将xml字符串 转换成对象
         $xml = (array)$xml; //转化成数组
+         \Log::Info(json_encode($xml));  //输出收到的信息
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents(storage_path('logs/wx_event.log'),$log_str,FILE_APPEND);
+
         // dd($xml);
         if($xml['MsgType'] == 'event'){
+
             if($xml['Event'] == 'subscribe'){ //关注
                //isset检测变量是否设置
+
                 if(isset($xml['EventKey'])){
+
                     //dd(11);
                     //拉新操作
                     $agent_code = explode('_',$xml['EventKey'])[1];
@@ -642,12 +648,15 @@ class Weixin extends Controller
                     }
                 }
                 //$message = '嗨!';//新关注用户回复
-                $user = DB::table('user_wechat')->where('openid',$xml['FromUserName'])->first();
-                $message = '欢迎'.'$user->name'.'进入选课系统!';
+                //dd($xml['FromUserName']);
+                $user = DB::table('user_wechat')->first();
+                //dd($user);
+                $message = '欢迎'.$user->name.'进入选课系统!';
                 //dd($message);
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
             }elseif($xml['Event']=='CLICK'){
+//                dd(33);
                 if($xml['EventKey']=='wodebiaobai'){
                     $openid=$xml['FromUserName'];
                     $data = DB::table('biao_bai')->where('openid',$openid)->get();
@@ -661,31 +670,25 @@ class Weixin extends Controller
                     $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                     echo $xml_str;
                 }elseif($xml['EventKey']=='kecheng'){
+                    dd(11);
                 $data =DB::table('kecheng')->where('openid',$xml['FromUserName'])->first();
-//                $data=json_decode($data,1);
-//                $data=json_decode($data,1);
-//                    dd($data->class1);
+                //dd($data);
                 if(empty($data)){
+                    dd(22);
                     $message='没有选修课程,请选修课程';
-                    $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                    $xml_str = '<xml><`ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                     echo $xml_str;
                 }else{
+                    dd(33);
                     $user = DB::table('user_wechat')->where('openid',$xml['FromUserName'])->first();
+
                     $message='欢迎'.$user->name."\n".'第一节'.$data->first_kecheng."\n".'第2节'.$data->two_kecheng."\n".'第3节'.$data->three_kecheng."\n".'第4节'.$data->four_kecheng;
                     $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                     echo $xml_str;
-
-
+                    }
                 }
+            }elseif($xml['EventKey']=='qiandao'){
 
-                }
-
-            }else{
-
-                $user = DB::table('user_wechat')->where('openid',$xml['FromUserName'])->first();
-                $message = '欢迎'.$user->name.'进入选课系统';
-                $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-                echo $xml_str;
             }
         }
         elseif($xml['MsgType'] == 'text'){

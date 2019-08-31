@@ -648,13 +648,13 @@ class Weixin extends Controller
                 //dd($message);
                 $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                 echo $xml_str;
-            }elseif($xml['Event'] == 'click'){
-                if($xml['EventKey'] == 'kecheng'){
-                    $message = '还没选择课程，请先选择课程';
-                    $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-                    echo $xml_str;
-                }
+          }elseif($xml['EventKey'] == 'kecheng'){
+                //dd(11);
+                $message = '还没选择课程，请先选择课程';
+                $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+                echo $xml_str;
             }
+
         }elseif($xml['MsgType'] == 'text'){
             //dd($xml['Content']);
             $preg_str='/^.*?油价$/';

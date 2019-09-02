@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e1a2cd4c-093a-4b5e-a2a5-80fcd45e937e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Jiekou.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Kecheng.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Kecheng.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Tools/Wechat.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Tools/Wechat.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/kecheng/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/kecheng/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-    </list>
+    <list default="true" id="e1a2cd4c-093a-4b5e-a2a5-80fcd45e937e" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,54 +17,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5580">
-              <caret line="640" column="56" selection-start-line="640" selection-start-column="56" selection-end-line="640" selection-end-column="56" />
-              <folding>
-                <element signature="e#3564#4328#0#PHP" />
-                <element signature="e#4344#4790#0#PHP" />
-                <element signature="e#4814#5337#0#PHP" />
-                <element signature="e#5343#5540#0#PHP" />
-                <element signature="e#5547#6178#0#PHP" />
-                <element signature="e#6184#6724#0#PHP" />
-                <element signature="e#6736#6759#0#PHP" />
-                <element signature="e#6764#7120#0#PHP" />
-                <element signature="e#7125#7550#0#PHP" />
-                <element signature="e#7585#8951#0#PHP" />
-                <element signature="e#9054#9807#0#PHP" />
-                <element signature="e#9824#9903#0#PHP" />
-                <element signature="e#9908#10723#0#PHP" />
-                <element signature="e#10734#11577#0#PHP" />
-                <element signature="e#11582#12489#0#PHP" />
-                <element signature="e#12494#13392#0#PHP" />
-                <element signature="e#13409#13849#0#PHP" />
-                <element signature="e#13863#13939#0#PHP" />
-                <element signature="e#13955#14500#0#PHP" />
-                <element signature="e#14516#14872#0#PHP" />
-                <element signature="e#14892#15522#0#PHP" />
-                <element signature="e#15539#16047#0#PHP" />
-                <element signature="e#16083#17197#0#PHP" />
-                <element signature="e#17219#17815#0#PHP" />
-                <element signature="e#17845#18139#0#PHP" />
-                <element signature="e#18144#18729#0#PHP" />
-                <element signature="e#18745#19395#0#PHP" />
-                <element signature="e#19415#20350#0#PHP" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StudentController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3270">
-              <caret line="110" column="19" selection-start-line="110" selection-start-column="19" selection-end-line="110" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
@@ -84,22 +28,25 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.env">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+            <state relative-caret-position="243">
+              <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Kecheng.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6870">
-              <caret line="260" column="7" selection-start-line="260" selection-start-column="7" selection-end-line="260" selection-end-column="7" />
-              <folding>
-                <element signature="e#2694#3832#0#PHP" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/storage/logs/.gitignore">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/storage/logs/wechat.log">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/storage/logs/wx_event.log">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -164,6 +111,8 @@
         <option value="$PROJECT_DIR$/app/Http/Tools/Wechat.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Jiekou.php" />
+        <option value="$PROJECT_DIR$/storage/logs/wx_event.log" />
+        <option value="$PROJECT_DIR$/storage/logs/wechat.log" />
         <option value="$PROJECT_DIR$/.env" />
       </list>
     </option>
@@ -337,38 +286,18 @@
             <path>
               <item name="myshop" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\wnmp\www\myshop" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="myshop" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\wnmp\www\myshop" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Controllers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="myshop" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\wnmp\www\myshop" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="myshop" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\wnmp\www\myshop" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="views" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="myshop" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\wnmp\www\myshop" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="views" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="kecheng" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="myshop" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\wnmp\www\myshop" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="routes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="myshop" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\wnmp\www\myshop" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="storage" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="myshop" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\wnmp\www\myshop" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="storage" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="logs" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -420,22 +349,22 @@
       <workItem from="1567211511631" duration="2613000" />
       <workItem from="1567214150952" duration="149000" />
       <workItem from="1567214318603" duration="17910000" />
-      <workItem from="1567383714533" duration="3648000" />
+      <workItem from="1567383714533" duration="4575000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25972000" />
+    <option name="totallyTimeSpent" value="26899000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.186946" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.186946" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32982457" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -630,10 +559,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2019-08-30.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2019-08-31.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/wx_event.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/wechat.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+        <state relative-caret-position="243">
+          <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
         </state>
       </provider>
     </entry>

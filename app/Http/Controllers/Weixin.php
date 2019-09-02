@@ -732,9 +732,10 @@ class Weixin extends Controller
     }
     public function do_get()
     {
-        $url="http://www.wantwo.cn/tool/index";
+        $url="http://www.yijianxin.cn/jiekou/jiekou";
         $data=$this->wechat->get($url);
         // $data=file_get_contents($url);
+        //echo 11;die;
         var_dump($data);
     }
 

@@ -143,7 +143,7 @@ class Kecheng extends Controller
                             'add_time'=>time()
                         ]);
                     }
-                } 
+                }
                 //$message = '嗨!';//新关注用户回复
                 $message = '欢迎进入选课系统!';
                 //dd($message);
@@ -171,7 +171,7 @@ class Kecheng extends Controller
                 if(!in_array($city,$support_arr)){
                      $message = '查询城市不存在';
                       $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
-                    echo $xml_str;die(); 
+                    echo $xml_str;die();
                  }
                  //dd($price_arr['result']);
                  foreach ($price_arr['result']  as $v) {
@@ -185,7 +185,7 @@ class Kecheng extends Controller
                             //dd(11);
                             if($this->redis->exists($city.'信息')){
                                 //存在
-                                
+
                                 $v_info=$this->redis->get($city.'信息');
                                 $v=json_decode($v_info,1);
                                 //dd($v);
@@ -194,7 +194,7 @@ class Kecheng extends Controller
                             }
 
                         }
-                      
+
                         $message = $city.'目前油价：'."\n".'92h：'.$v['92h']."\n".'95h：'.$v['95h']."\n".'98h：'.$v['98h']."\n".'0h：'.$v['0h'];
                         $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
                         echo $xml_str;
@@ -202,8 +202,8 @@ class Kecheng extends Controller
                     }
                  }
             }
-            
-  
+
+
             // $message = '你好,欢迎来到我的世界';
             // $xml_str = '<xml><ToUserName><![CDATA['.$xml['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
             // echo $xml_str;
@@ -211,7 +211,7 @@ class Kecheng extends Controller
         //echo $_GET['echostr'];  //第一次访问
     }
 
-  
+
    public  function add()
    {
    		return view('kecheng/add');
@@ -258,7 +258,7 @@ class Kecheng extends Controller
   	 public  function update(Request $request)
    {
    		$openid=$request->all();
-       //dd($openid);
+       dd($openid);
        $data=DB::table('kecheng')->where('openid',$openid['openid'])->first();
        //dd($data);
         return view('kecheng/update',['data'=>$data]);

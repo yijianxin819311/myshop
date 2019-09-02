@@ -9,7 +9,7 @@
 </head>
 <body>
 <div align="center">
-    <table width="300" border="1">
+    <table width="600" border="1">
         <tr>
             <th>编号</th>
             <th>第一节课</th>
@@ -18,6 +18,7 @@
             <th>第四节课</th>
 
             <th>时间</th>
+            <th>操作</th>
         </tr>
         @foreach($list as $k=>$v)
             <tr>
@@ -27,6 +28,8 @@
                 <td>{{$v->three_kecheng}}</td>
                 <td>{{$v->four_kecheng}}</td>
                 <td>{{date('Y-m-d H:i:s',$v->add_time)}}</td>
+                <td>
+                    <a href="{{url('kecheng/update')}}?id={{$v->id}}">修改</a></td>
             </tr>
             @endforeach
     </table>

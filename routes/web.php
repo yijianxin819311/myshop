@@ -264,6 +264,9 @@ Route::post('/kecheng/update_do','Kecheng@update_do');
 Route::get('/kecheng/moban','Kecheng@moban');
 Route::get('/kecheng/class_caidan', 'Kecheng@class_caidan');
 
+
+//接口
+Route::get('/jiekou/jiekou','Jiekou@jiekou');
 //调用中间件
 // Route::group(['middleware' => ['liuyan_login']], function () {
 //     //留言

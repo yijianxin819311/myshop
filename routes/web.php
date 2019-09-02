@@ -73,34 +73,7 @@ Route::post('/admin/add_do','admin\Train@add_do');
 Route::get('/admin/list','admin\Train@list');
 //
 Route::any('/wechat/event','WechatController@event'); //接收公众号事件
-//用户标签相关
-Route::get('/wechat/update_tag','WechatController@update_tag'); //修改标签
-Route::post('/wechat/do_update_tag','WechatController@do_update_tag'); //执行修改标签
-Route::get('/wechat/tag_list','WechatController@tag_list'); //标签列表
-Route::get('/wechat/add_tag','WechatController@add_tag'); //添加标签
-Route::get('/wechat/do_add_tag','WechatController@do_add_tag'); //执行添加标签
-Route::post('/wechat/add_user_tag','WechatController@add_user_tag'); //为用户打标签
-Route::get('/wechat/del_tag','WechatController@del_tag'); //删除标签
-Route::get('/wechat/tag_user','WechatController@tag_user'); //标签下用户列表
-Route::get('/wechat/get_user_tag','WechatController@get_user_tag'); //获取用户标签
-Route::get('/wechat/del_user_tag','WechatController@del_user_tag'); //删除用户标签
-Route::get('/wechat/push_tag_message','WechatController@push_tag_message'); //根据标签推送消息
-Route::post('/wechat/do_push_tag_message','WechatController@do_push_tag_message'); //执行根据标签推送消息
-Route::get('/wechat/code','WechatController@code');
-Route::get('/wechat/login','WechatController@login');
-Route::get('/wechat/template_list','WechatController@template_list');
-Route::get('/wechat/del_template','WechatController@del_template');
-Route::get('/wechat/push_template','WechatController@push_template');
-//上传素材
-Route::get('/wechat/upload_source','WechatController@upload_source');
-Route::get('/wechat/get_source','WechatController@get_source');
-Route::get('/wechat/get_video_source','WechatController@get_video_source');
-Route::get('/wechat/get_voice_source','WechatController@get_voice_source');
-Route::post('wechat/do_upload','WechatController@do_upload');
-//第一周作业
-Route::get('/wechat/get_user_info','WechatController@get_user_info');
-Route::get('/wechat/get_user_list','WechatController@get_user_list');
-Route::get('/wechat/user_list','WechatController@user_list');
+
 //接口
 Route::get('/weixin/get_user_info','Weixin@get_user_info');
 Route::get('/weixin/wechat_user_info','Weixin@wechat_user_info');

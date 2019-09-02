@@ -736,7 +736,7 @@ class Weixin extends Controller
         $data=$this->wechat->get($url);
         // $data=file_get_contents($url);
         //echo 11;die;
-        var_dump($data);
+        dd($data);
     }
 
 }

@@ -730,6 +730,12 @@ class Weixin extends Controller
         }
         //echo $_GET['echostr'];  //第一次访问
     }
-
+    public function do_get()
+    {
+        $url="http://www.wantwo.cn/tool/index";
+        $data=$this->wechat->get($url);
+        // $data=file_get_contents($url);
+        var_dump($data);
+    }
 
 }

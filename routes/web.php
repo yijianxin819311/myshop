@@ -267,6 +267,8 @@ Route::get('/kecheng/class_caidan', 'Kecheng@class_caidan');
 
 //接口
 Route::get('/jiekou/jiekou','Jiekou@jiekou');
+Route::get('/tools/jiekou','tools\Wechat@jiekou');
+Route::get('/weixin/do_get','Weixin@do_get');
 //调用中间件
 // Route::group(['middleware' => ['liuyan_login']], function () {
 //     //留言

@@ -741,7 +741,7 @@ class Weixin extends Controller
     public function test()
     {
         //echo 11;die;
-        $url="http://www.myshop.com/member/show";
+        $url="http://www.yijianxin.cn/member/show";
         //dd($url);
         $res=file_get_contents($url);
         dd($res);

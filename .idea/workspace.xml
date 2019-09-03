@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1a2cd4c-093a-4b5e-a2a5-80fcd45e937e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Weixin.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Weixin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +21,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="745" column="37" lean-forward="true" selection-start-line="745" selection-start-column="37" selection-end-line="745" selection-end-column="37" />
+            <state relative-caret-position="225">
+              <caret line="743" column="51" lean-forward="true" selection-start-line="743" selection-start-column="51" selection-end-line="743" selection-end-column="51" />
               <folding>
                 <element signature="e#3564#4328#0#PHP" />
                 <element signature="e#4344#4790#0#PHP" />
@@ -46,8 +44,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.env">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="18" column="21" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+            <state relative-caret-position="455">
+              <caret line="24" column="18" lean-forward="true" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -355,12 +353,12 @@
       <workItem from="1567214150952" duration="149000" />
       <workItem from="1567214318603" duration="17910000" />
       <workItem from="1567383714533" duration="10344000" />
-      <workItem from="1567469912573" duration="4600000" />
+      <workItem from="1567469912573" duration="4830000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37268000" />
+    <option name="totallyTimeSpent" value="37498000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -600,8 +598,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="745" column="37" lean-forward="true" selection-start-line="745" selection-start-column="37" selection-end-line="745" selection-end-column="37" />
+        <state relative-caret-position="225">
+          <caret line="743" column="51" lean-forward="true" selection-start-line="743" selection-start-column="51" selection-end-line="743" selection-end-column="51" />
           <folding>
             <element signature="e#3564#4328#0#PHP" />
             <element signature="e#4344#4790#0#PHP" />
@@ -612,8 +610,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="18" column="21" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+        <state relative-caret-position="455">
+          <caret line="24" column="18" lean-forward="true" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
         </state>
       </provider>
     </entry>

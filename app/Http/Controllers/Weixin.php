@@ -161,7 +161,7 @@ class Weixin extends Controller
 
     public function user_list(Request $request)
     {
-        
+
     	$user_info=DB::table('wechat_openid')->get();
     	 //dd($user_info);
     	return view('weixin/user_list',['res'=>$user_info]);
@@ -170,8 +170,10 @@ class Weixin extends Controller
 
     public function lists(Request $request)
     {
-    	
-         $openid=DB::table('wechat_openid')->where(['id'=>$this->request->all()['id']])->value('openid');
+    	$openid=$request->all()['openid'];
+        //dd($id);
+         //$openid=DB::table('wechat_openid')->where(['id'=>$id['openid']])->value('openid');
+         //dd($openid);
         $user_info = $this->wechat->wechat_user_info($openid);
         //dd($user_info);
         //dd($openid);
@@ -729,14 +731,19 @@ class Weixin extends Controller
             // echo $xml_str;
         }
         //echo $_GET['echostr'];  //第一次访问
-    }
-    public function do_get()
-    {
-        $url="http://www.yijianxin.cn/jiekou/jiekou";
-        $data=$this->wechat->get($url);
-        // $data=file_get_contents($url);
         //echo 11;die;
         dd($data);
     }
-
+    /*
+     * 测试接口
+     *
+     */
+    public function test()
+    {
+        //echo 11;die;
+        $url="http://www.myshop.com/member/show";
+        //dd($url);
+        $res=file_get_contents($url);
+        dd($res);
+    }
 }

@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1a2cd4c-093a-4b5e-a2a5-80fcd45e937e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Weixin.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Weixin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,37 +23,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="421">
-              <caret line="738" column="18" lean-forward="true" selection-start-line="738" selection-start-column="18" selection-end-line="738" selection-end-column="18" />
+            <state relative-caret-position="285">
+              <caret line="745" column="37" lean-forward="true" selection-start-line="745" selection-start-column="37" selection-end-line="745" selection-end-column="37" />
               <folding>
                 <element signature="e#3564#4328#0#PHP" />
                 <element signature="e#4344#4790#0#PHP" />
                 <element signature="e#4814#5337#0#PHP" />
-                <element signature="e#5343#5540#0#PHP" />
-                <element signature="e#5547#6178#0#PHP" />
-                <element signature="e#6184#6724#0#PHP" />
-                <element signature="e#6736#6759#0#PHP" />
-                <element signature="e#6764#7120#0#PHP" />
-                <element signature="e#7125#7550#0#PHP" />
-                <element signature="e#7585#8951#0#PHP" />
-                <element signature="e#9054#9807#0#PHP" />
-                <element signature="e#9824#9903#0#PHP" />
-                <element signature="e#9908#10723#0#PHP" />
-                <element signature="e#10734#11577#0#PHP" />
-                <element signature="e#11582#12489#0#PHP" />
-                <element signature="e#12494#13392#0#PHP" />
-                <element signature="e#13409#13849#0#PHP" />
-                <element signature="e#13863#13939#0#PHP" />
-                <element signature="e#13955#14500#0#PHP" />
-                <element signature="e#14516#14872#0#PHP" />
-                <element signature="e#14892#15522#0#PHP" />
-                <element signature="e#15539#16047#0#PHP" />
-                <element signature="e#16083#17197#0#PHP" />
-                <element signature="e#17219#17815#0#PHP" />
-                <element signature="e#17845#18139#0#PHP" />
-                <element signature="e#18144#18729#0#PHP" />
-                <element signature="e#18745#19395#0#PHP" />
-                <element signature="e#19415#20350#0#PHP" />
               </folding>
             </state>
           </provider>
@@ -60,8 +37,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="86" column="32" selection-start-line="86" selection-start-column="20" selection-end-line="86" selection-end-column="33" />
+            <state relative-caret-position="195">
+              <caret line="244" column="38" selection-start-line="244" selection-start-column="38" selection-end-line="244" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -69,58 +46,29 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.env">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="21" column="12" lean-forward="true" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+            <state relative-caret-position="275">
+              <caret line="18" column="21" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Tools/Wechat.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MemberController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="197" selection-start-line="197" selection-end-line="197" />
+            <state relative-caret-position="240">
+              <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+              <folding>
+                <element signature="e#40#68#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/storage/logs/.gitignore">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/kecheng/list.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Model/Member.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="900">
-              <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Jiekou.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Biaobai.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PriceController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="15" column="52" lean-forward="true" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
+            <state relative-caret-position="270">
+              <caret line="9" column="36" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -130,6 +78,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>login</find>
+      <find>user_l</find>
+      <find>user_lis</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -146,9 +96,11 @@
         <option value="$PROJECT_DIR$/storage/logs/wechat.log" />
         <option value="$PROJECT_DIR$/app/Http/Tools/Wechat.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Jiekou.php" />
+        <option value="$PROJECT_DIR$/app/Http/Model/Member.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/MemberController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Weixin.php" />
         <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
       </list>
     </option>
   </component>
@@ -329,14 +281,12 @@
               <item name="C:\wnmp\www\myshop" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Middleware" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Model" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="myshop" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\wnmp\www\myshop" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Tools" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="routes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="myshop" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -404,12 +354,13 @@
       <workItem from="1567211511631" duration="2613000" />
       <workItem from="1567214150952" duration="149000" />
       <workItem from="1567214318603" duration="17910000" />
-      <workItem from="1567383714533" duration="9345000" />
+      <workItem from="1567383714533" duration="10344000" />
+      <workItem from="1567469912573" duration="4600000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31669000" />
+    <option name="totallyTimeSpent" value="37268000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -417,7 +368,7 @@
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.18614021" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.18855761" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32982457" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -464,6 +415,20 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LAST_COMMIT_MESSAGE" value="" />
@@ -473,7 +438,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Weixin.php</url>
-          <line>211</line>
+          <line>213</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
@@ -535,41 +500,13 @@
     <entry file="file://$PROJECT_DIR$/resources/views/kecheng/update.blade.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kecheng/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PriceController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="15" column="52" lean-forward="true" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2019-08-30.log">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2019-08-31.log">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/logs/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2019-08-30.log" />
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel-2019-08-31.log" />
     <entry file="file://$PROJECT_DIR$/storage/logs/wx_event.log">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/storage/logs/wechat.log">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Biaobai.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -580,66 +517,103 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Tools/Wechat.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
+        <state relative-caret-position="5850">
           <caret line="197" selection-start-line="197" selection-end-line="197" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Jiekou.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="390">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Biaobai.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="738" column="18" lean-forward="true" selection-start-line="738" selection-start-column="18" selection-end-line="738" selection-end-column="18" />
-          <folding>
-            <element signature="e#3564#4328#0#PHP" />
-            <element signature="e#4344#4790#0#PHP" />
-            <element signature="e#4814#5337#0#PHP" />
-            <element signature="e#5343#5540#0#PHP" />
-            <element signature="e#5547#6178#0#PHP" />
-            <element signature="e#6184#6724#0#PHP" />
-            <element signature="e#6736#6759#0#PHP" />
-            <element signature="e#6764#7120#0#PHP" />
-            <element signature="e#7125#7550#0#PHP" />
-            <element signature="e#7585#8951#0#PHP" />
-            <element signature="e#9054#9807#0#PHP" />
-            <element signature="e#9824#9903#0#PHP" />
-            <element signature="e#9908#10723#0#PHP" />
-            <element signature="e#10734#11577#0#PHP" />
-            <element signature="e#11582#12489#0#PHP" />
-            <element signature="e#12494#13392#0#PHP" />
-            <element signature="e#13409#13849#0#PHP" />
-            <element signature="e#13863#13939#0#PHP" />
-            <element signature="e#13955#14500#0#PHP" />
-            <element signature="e#14516#14872#0#PHP" />
-            <element signature="e#14892#15522#0#PHP" />
-            <element signature="e#15539#16047#0#PHP" />
-            <element signature="e#16083#17197#0#PHP" />
-            <element signature="e#17219#17815#0#PHP" />
-            <element signature="e#17845#18139#0#PHP" />
-            <element signature="e#18144#18729#0#PHP" />
-            <element signature="e#18745#19395#0#PHP" />
-            <element signature="e#19415#20350#0#PHP" />
-          </folding>
+        <state relative-caret-position="150">
+          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Model/Goods.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/kecheng/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/weixin/user_list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="21" column="59" selection-start-line="21" selection-start-column="59" selection-end-line="21" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Model/Train.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="10" column="30" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="10" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PriceController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="15" column="52" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="86" column="32" selection-start-line="86" selection-start-column="20" selection-end-line="86" selection-end-column="33" />
+        <state relative-caret-position="195">
+          <caret line="244" column="38" selection-start-line="244" selection-start-column="38" selection-end-line="244" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Model/Member.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="9" column="36" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MemberController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="745" column="37" lean-forward="true" selection-start-line="745" selection-start-column="37" selection-end-line="745" selection-end-column="37" />
+          <folding>
+            <element signature="e#3564#4328#0#PHP" />
+            <element signature="e#4344#4790#0#PHP" />
+            <element signature="e#4814#5337#0#PHP" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="21" column="12" lean-forward="true" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+        <state relative-caret-position="275">
+          <caret line="18" column="21" lean-forward="true" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
         </state>
       </provider>
     </entry>

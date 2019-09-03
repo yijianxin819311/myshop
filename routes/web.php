@@ -242,6 +242,8 @@ Route::get('/kecheng/class_caidan', 'Kecheng@class_caidan');
 Route::get('/jiekou/jiekou','Jiekou@jiekou');
 
 Route::get('/weixin/do_get','Weixin@do_get');
+Route::get('/weixin/test','Weixin@test');
+Route::get('/member/show','MemberController@show');
 //调用中间件
 // Route::group(['middleware' => ['liuyan_login']], function () {
 //     //留言

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Http\Model\Api;
 use App\Http\Tools\Wechat;
 use GuzzleHttp\Client;
 use Illuminate\Http\Response;
@@ -743,7 +744,23 @@ class Weixin extends Controller
         //echo 11;die;
         $url="http://www.yijianxin.cn/member/show";
         //dd($url);
-        $res=file_get_contents($url);
+        $res=Api::get($url);
         dd($res);
+    }
+    public function test1()
+    {
+        $url="http://www.yijianxin.cn/member/show";
+        $context = stream_context_create(array(
+            'http' => array(
+                'method' => 'POST',
+                'header' => 'Content-type:application/x-www-form-urlencoded',
+                // 'content' => http_build_query($info),   // ?name=zhangsan&age=11
+                'timeout' => 20
+            )
+        ));
+        $data=Api::post($url);
+
+
+
     }
 }

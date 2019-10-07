@@ -239,11 +239,59 @@ Route::get('/kecheng/class_caidan', 'Kecheng@class_caidan');
 
 
 //接口
+Route::get('/member/add', function () {
+    return view('api.add');
+});
+Route::get('/member/show', function () {
+    return view('api.show');
+});
+Route::get('/member/shows', function () {
+    return view('api.show1');
+});
+Route::get('/member/save', function () {
+    return view('api.save');
+});
+Route::get('/goods/adds', function () {
+    return view('api.adds');
+});
+Route::get('/goods/list', function () {
+    return view('api.list');
+});
+Route::get('/goods/update', function () {
+    return view('api.update');
+});
+Route::get('/goods/list', function () {
+    return view('api.list');
+});
 Route::get('/jiekou/jiekou','Jiekou@jiekou');
-
 Route::get('/weixin/do_get','Weixin@do_get');
 Route::get('/weixin/test','Weixin@test');
-Route::get('/member/show','MemberController@show');
+Route::get('/weixin/test1','Weixin@test1');
+Route::get('/api/member/show','api\MemberController@show');//展示
+Route::get('/api/member/index','api\MemberController@index');//展示
+Route::get('/api/test/add','api\TestController@add');//加密
+Route::get('/api/test/jiekou','api\TestController@jiekou');//加密接口
+Route::get('/api/goods/aes','api\GoodsController@aes');//aes加密解密
+Route::get('/api/goods/rsa','api\GoodsController@rsa');//rsa加密解密
+Route::get('/api/goods/zuoye','api\GoodsController@zuoye');//rsa加密解密
+Route::get('/api/goods/jiekou_add','api\GoodsController@jiekou_add');//写接口加密
+Route::get('/api/goods/jiekouadd','api\GoodsController@jiekouadd');//写接口加密
+Route::get('/api/goods/jiekou_do','api\GoodsController@jiekou_do');//写接口加密
+Route::get('/api/member/shows','api\Member1Controller@shows');//展示
+//Route::any('/api/member/add','api\MemberController@add');//添加
+//Route::any('/api/goods/store','api\CategoryController@store');//添加
+Route::any('/api/goods/index','api\GoodsController@index');//商品展示
+Route::any('/api/goods/destroy','api\GoodsController@destroy');//商品删除
+//Route::any('/api/member/find','api\MemberController@find');//修改默认值
+//Route::any('/api/member/save','api\MemberController@save');//修改执行
+//Route::any('/api/member/delete','api\MemberController@delete');//删除
+//Route::any('/api/member/loginPages','api\MemberController@loginPages');//删除
+Route::any('/api/member/loginPages','api\Member1Controller@loginPages');//删除
+//result路由
+Route::resource('api/goods', 'api\GoodsController');
+Route::resource('api/member', 'api\MemberController');
+
+
 //调用中间件
 // Route::group(['middleware' => ['liuyan_login']], function () {
 //     //留言
@@ -253,3 +301,72 @@ Route::get('/member/show','MemberController@show');
 Route::post('/liuyan/do_liuyan','Liuyan@do_liuyan');
 Route::get('/liuyan/list','Liuyan@list');
 Route::get('/liuyan/delete','Liuyan@delete');
+
+//商城
+Route::get('/admins/index', function () {
+    return view('admins.index');
+});
+//Route::get('/admins/cate', function () {
+//    return view('admins.category');
+//});
+//Route::any('/admins/goods/list','admins\CategoryController@list');//修改默认值
+Route::get('/admins/cate','admins\CategoryController@cate');
+Route::post('/admins/add_do','admins\CategoryController@add_do');
+Route::any('/admins/add_dodo','admins\CategoryController@add_dodo');
+Route::get('/admins/lists','admins\CategoryController@lists');
+Route::get('/admins/goods_type','admins\CategoryController@goods_type');
+Route::post('/admins/type_do','admins\CategoryController@type_do');
+Route::get('/admins/type_list','admins\CategoryController@type_list');
+Route::get('/admins/goods_attr','admins\CategoryController@goods_attr');
+Route::post('/admins/attr_do','admins\CategoryController@attr_do');
+Route::get('/admins/attr_list','admins\CategoryController@attr_list');
+Route::get('/admins/attr_lists','admins\CategoryController@attr_lists');
+Route::get('/admins/del','admins\CategoryController@del');//批删
+//Route::get('/admins/goods','admins\CategoryController@goods');
+Route::get('/admins/attr_add','admins\GoodsController@attr_add');
+Route::any('/admins/goods_add_do','admins\GoodsController@goods_add_do');
+Route::any('/admins/goods_sku/{goods_id}','admins\GoodsController@goods_sku');
+Route::any('/admins/goods_sku_do','admins\GoodsController@goods_sku_do');
+Route::any('/admins/goods_list','admins\GoodsController@goods_list');
+Route::any('/admins/change','admins\GoodsController@change');//即点即改
+Route::any('/admins/login','admins\GoodsController@login');//登录
+Route::any('/admins/login_do','admins\GoodsController@login_do');//登录执行
+Route::any('/admins/register','admins\GoodsController@register');//注册
+//调用中间件
+ Route::group(['middleware' => ['login']], function () {
+    Route::get('/admins/goods','admins\CategoryController@goods');
+
+});
+//调用中间件
+Route::group(['middleware' => ['apiheader']], function () {
+    Route::any('/api/index/cate','api\IndexController@cate');//前台分类接口
+    Route::any('/api/index/cates','api\IndexController@cates');//前台分类接口
+    Route::any('/api/index/newgoods','api\IndexController@newgoods');//前台新商品接口
+    Route::any('/api/index/allgoods','api\IndexController@allgoods');//前台新商品接口
+    Route::any('/api/index/goodsdetail','api\IndexController@goodsdetail');//前台新商品接口
+    Route::any('/api/index/login','api\IndexController@login');//token登录
+    Route::any('/api/index/addresslist','api\IndexController@addresslist');//收货地址展示
+    Route::group(['middleware' => ['token']], function () {
+        Route::any('/api/index/addcart','api\IndexController@addcart');//添加购物车
+        Route::any('/api/index/info','api\IndexController@info');//用户信息
+        Route::any('/api/index/cartlist','api\IndexController@cartlist');//购物车展示
+        Route::any('/api/index/goods_buy','api\IndexController@goods_buy');//添加收货地址
+    });
+});
+//购物车展示测试接口
+//Route::any('/api/index/goods_buy','api\IndexController@goods_buy');
+//用户信息
+//Route::any('/api/index/cartlist','api\IndexController@cartlist');
+//天气接口
+Route::any('/api/weather/login','api\WeatherController@login');//登录接口
+Route::any('/api/weather/login_out','api\WeatherController@login_out');//退出接口
+Route::any('/api/weather/register','api\WeatherController@register');//登录接口
+Route::any('/api/weather/weather','api\WeatherController@weather');//查询天气接口
+Route::any('/api/weather/weather_do','api\WeatherController@weather_do');//查询天气接口
+Route::any('/api/weather/web','api\WeatherController@web');//登录接口
+//app接口
+Route::any('/api/app/regster','api\AppController@regster');//注册接口
+Route::any('/api/app/login_do','api\AppController@login_do');//注册接口
+Route::any('/api/app/orderlist','api\AppController@orderlist');//订单展示接口
+Route::any('/api/app/app','api\AppController@app');//app测试
+Route::any('/api/app/apps','api\AppController@apps');//添加参数接口

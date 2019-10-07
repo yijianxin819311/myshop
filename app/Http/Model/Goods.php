@@ -13,4 +13,6 @@ class Goods extends Model
      */
     protected $table = 'shop_goods';
     protected $primarykey="goods_id";
+    public $timestamps = false;
+    protected $guarded=[];
 }

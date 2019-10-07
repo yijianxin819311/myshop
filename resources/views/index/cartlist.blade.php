@@ -1,6 +1,5 @@
 @extends('layout.common')
 @section('title', '购物车列表')
-
 @section('body')
 
 

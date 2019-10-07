@@ -22,8 +22,12 @@
 			@foreach ($goods as $v)
 			<tr>
 				<td>{{$v->id}}</td>
-				<td>{{$v->goods_name}}</td>
-				<td>{{$v->goods_price}}</td>
+				<td>
+					{{$v->goods_name}}
+				</td>
+				<td>
+					{{$v->goods_price}}
+				</td>
 				<td><img src="{{$v->goods_pic}}" alt="" width="50px"></td>
 				<td>{{ date('Y-m-d h:i:s',$v->add_time)}}</td>
 				<td>

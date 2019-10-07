@@ -100,7 +100,7 @@ class Agent extends Controller
        //获取文件名
       $h=$res->getHeaders();
       //dd($h);
-      $ext=explode('/',$h['Content-Type'][0])[1];//取后缀名
+      $ext=explode('/',$h['Content-Types'][0])[1];//取后缀名
       //dd($ext);
       $file_name=time().rand(1000,9999).'.'.$ext;//生成新的
       //dd($file_name);

@@ -15,14 +15,9 @@ class Login
      */
     public function handle($request, Closure $next)
     {
-        //前置
-        $result=$request->session()->has('username');
-         //dump($result);
-        if($result){
-            echo "登录成功";
+        if(empty(session('name'))){
+            return redirect('admins/login');
         }
-        $response=$next($request);
-        echo 22;
-        return $response;
+        return $next($request);
     }
 }

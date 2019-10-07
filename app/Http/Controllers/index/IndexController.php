@@ -33,7 +33,7 @@ class IndexController extends Controller
                 ['name','=',$data['names']],
                 ['password','=',$data['password']],
             ];
-            $res=User::where($where)->insert($res);
+            $res=User::where($where)->insert($data);
             // dd($res);
             if($res){
                 $request->session()->put('name',$data['names']);

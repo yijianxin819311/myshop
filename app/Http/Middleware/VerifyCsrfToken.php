@@ -24,5 +24,6 @@ class VerifyCsrfToken extends Middleware
         '/kecheng/event',
         'notify_url','return_url',
         'liuyan_info',
+        '*',
     ];
 }
